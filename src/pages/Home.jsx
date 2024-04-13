@@ -23,9 +23,6 @@ function Home() {
           <h2 class="text-6xl font-bold mb-4 text-blue-800">
             Cum te putem ajuta?
           </h2>
-          <h2 class="text-md font-bold mb-4 text-blue-800">
-            {process.env.NODE_ENV}
-          </h2>
           <button class="bg-blue-500 hover:bg-blue-600 text-white py-3 px-6 rounded mt-20">
             Intră în cont
           </button>
