@@ -9,8 +9,12 @@ import {
   gql,
 } from "@apollo/client";
 
+const isProduction = process.env.NODE_ENV === "production";
+
+let apiUrl = isProduction ? process.env.API_PROD_HOST : "http://localhost:4000";
+
 const client = new ApolloClient({
-  uri: "http://localhost:4000/api/graphql",
+  uri: `${apiUrl}/api/graphql`,
   cache: new InMemoryCache(),
 });
 
