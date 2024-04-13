@@ -1,14 +1,14 @@
 function Home() {
   return (
     <div>
-      <div class="bg-blue-500 text-white py-2 px-4 rounded-lg fixed top-0 left-0 w-full">
+      <div class="bg-blue-500 text-white py-2 px-4 fixed top-0 left-0 w-full">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
           <div class="text-lg font-semibold">HealthGuard Wear</div>
           <div class="flex space-x-4">
-            <a href="#contact" class="hover:text-gray-300">
+            <a href="#contact" class="text-white hover:text-gray-200">
               Contact
             </a>
-            <a href="#help" class="hover:text-gray-300">
+            <a href="#help" class="text-white hover:text-gray-200">
               Help
             </a>
           </div>
