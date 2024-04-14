@@ -13,6 +13,8 @@ const isProduction = process.env.NODE_ENV === "production";
 
 let apiUrl = isProduction ? process.env.API_PROD_HOST : "http://localhost:4000";
 
+console.log(`API URL: ${apiUrl}`);
+
 const client = new ApolloClient({
   uri: `${apiUrl}/api/graphql`,
   cache: new InMemoryCache(),
