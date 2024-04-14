@@ -11,12 +11,8 @@ import {
 
 let apiUrl = import.meta.env.VITE_API_URL;
 
-console.log(
-  `HOST (in-use): ${import.meta.env.MODE} / API URL (in-use): ${apiUrl}`
-);
-
 const client = new ApolloClient({
-  uri: `${apiUrl}/api/graphql`,
+  uri: apiUrl,
   cache: new InMemoryCache(),
 });
 
