@@ -9,11 +9,16 @@ import {
   gql,
 } from "@apollo/client";
 
-const isProduction = process.env.NODE_ENV === "production";
+// const isProduction = process.env.NODE_ENV === "production";
 
-let apiUrl = isProduction ? process.env.API_PROD_HOST : "http://localhost:4000";
+let apiUrl = import.meta.env.VITE_API_URL;
 
-console.log(`API URL: ${apiUrl}`);
+console.log(`MODE (from env): ${import.meta.env.MODE}`);
+console.log(`API URL (from env): ${apiUrl}`);
+
+console.log(
+  `HOST (in-use): ${process.env.NODE_ENV} / API URL (in-use): ${apiUrl}`
+);
 
 const client = new ApolloClient({
   uri: `${apiUrl}/api/graphql`,

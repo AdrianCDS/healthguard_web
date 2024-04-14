@@ -5,8 +5,6 @@ function TestPage() {
 
   const users = data?.users;
 
-  console.log(users);
-
   if (loading) return <p>Almost there...</p>;
   if (error) return <p>{error.message}</p>;
 
