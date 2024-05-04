@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import userIcon from "../assets/doctor.png";
-import ModalEditarePacient from "./ModalEditarePacient";
+import EditPacientModal from "./EditPacientModal";
 import DeletePacientModal from "./DeletePacientModal";
 import { UserCircleIcon } from "@heroicons/react/16/solid";
 import { UserPlusIcon } from "@heroicons/react/24/outline";

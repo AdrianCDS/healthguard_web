@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Modal from "react-modal";
 
-function ModalEditarePacient({ isOpen, onClose, initialData }) {
+function EditPacientModal({ isOpen, onClose, initialData }) {
   const [editedPacient, setEditedPacient] = useState(initialData);
 
   const handleChange = (e) => {
@@ -185,4 +185,4 @@ function ModalEditarePacient({ isOpen, onClose, initialData }) {
   );
 }
 
-export default ModalEditarePacient;
+export default EditPacientModal;

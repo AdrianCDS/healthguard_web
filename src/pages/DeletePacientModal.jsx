@@ -19,7 +19,7 @@ function DeletePacientModal({ onCancel, onConfirm }) {
 
   return (
     <div className="fixed inset-0 z-50 overflow-auto bg-gray-800 bg-opacity-75 flex flex-col justify-center items-center">
-      <div ref={modalRef} className="bg-blue-200 p-6 rounded-lg w-1/3 h-1/3">
+      <div ref={modalRef} className="bg-blue-200 p-6 rounded-lg w-1/3">
         <h2 className="text-xl font-bold mb-4">Confirm delete</h2>
         <p className="mb-4">Are you sure you want to delete this pacient?</p>
         <div className="flex justify-end">
