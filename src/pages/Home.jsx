@@ -10,18 +10,18 @@ function Home() {
         className="bg-cover h-screen flex items-center justify-center bg-white"
         style={{ backgroundImage: "url('src/assets/homepagefade.png')" }}
       >
-        <div className="p-8 rounded-lg text-blue-900 text-center">
-          <h1 className="text-8xl font-bold mb-4">
-            Bun venit la HealthGuard Wear.
-          </h1>
-          <h2 className="text-6xl font-bold mb-20 text-blue-800">
-            Cum te putem ajuta?
-          </h2>
+        <div className="flex flex-col space-y-12 rounded-lg text-blue-900 text-center items-center">
+          <div className="flex flex-col space-y-2">
+            <h1 className="text-8xl font-bold">Welcome to HealthGuard Wear.</h1>
+            <h2 className="text-6xl font-boldtext-blue-800">
+              Access your dashboard down below
+            </h2>
+          </div>
           <Link
             to="/login"
-            className="bg-blue-500 hover:bg-blue-600 text-white py-3 px-6 rounded mt-20 "
+            className="bg-blue-500 hover:bg-blue-600 text-white py-3 px-6 rounded rounded-xl w-1/4"
           >
-            Intră în cont
+            Sign in
           </Link>
         </div>
       </div>

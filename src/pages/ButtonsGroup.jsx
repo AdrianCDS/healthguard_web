@@ -1,78 +1,79 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  EnvelopeIcon,
+  UsersIcon,
+  ArrowLeftStartOnRectangleIcon,
+  ListBulletIcon,
+} from "@heroicons/react/24/solid";
 
 function ButtonsGroup({ buttonLabels }) {
   const [activeButton, setActiveButton] = useState(null);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleButtonClick = (buttonName) => {
     setActiveButton(buttonName);
   };
 
   const handleLogout = () => {
-    const confirmation = window.confirm(
-      "Ești sigur că vrei să te deconectezi?"
-    );
+    const confirmation = window.confirm("Are you sure you want to logout?");
     if (confirmation) {
-      // Efectuăm acțiunile de delogare aici
-      // De exemplu, putem reseta starea autentificării
-      // și putem redirecționa utilizatorul către pagina de autentificare sau către pagina de start
-
-      // Resetează starea autentificării (exemplu)
-      // setIsLoggedIn(false);
-
-      // Redirecționează utilizatorul către pagina de autentificare
-      history.push("/login");
+      // handle logout logic here
+      navigate("/login");
     }
   };
 
   return (
-    <div className="flex flex-col justify-center items-center mt-20">
+    <div className="flex flex-col space-y-4">
       <Link
-        to="/detaliicont"
-        className={`w-1/2 h-16 p-3 rounded-lg mb-4 focus:outline-none text-lg text-center ${
-          activeButton === "Detalii"
+        to="/account"
+        className={`w-full flex space-x-2 items-center p-2 rounded-lg focus:outline-none text-lg text-left text-blue-500 ${
+          activeButton === "Details"
             ? "bg-blue-500 border-4 border-blue-800 text-white"
             : "bg-white border border-blue-700 text-blue-700"
-        } hover:bg-blue-300 hover:border-blue-300 hover:text-white transition-colors`}
-        onClick={() => handleButtonClick("Detalii")}
+        } hover:bg-blue-500 hover:border-blue-300 hover:text-white transition-colors`}
+        onClick={() => handleButtonClick("Details")}
       >
-        {buttonLabels["Detalii"]}
+        <ListBulletIcon class="h-6 w-6" />
+        <p>{buttonLabels["Details"]}</p>
       </Link>
       <Link
-        to="/listapacienti"
-        className={`w-1/2 h-16 p-3 rounded-lg mb-4 focus:outline-none text-lg text-center ${
-          activeButton === "Lista"
+        to="/pacients"
+        className={`w-full flex space-x-2 items-center p-2 rounded-lg focus:outline-none text-lg text-left text-blue-500 ${
+          activeButton === "List"
             ? "bg-blue-500 border-4 border-blue-800 text-white"
             : "bg-white border border-blue-700 text-blue-700"
-        } hover:bg-blue-300 hover:border-blue-300 hover:text-white transition-colors`}
-        onClick={() => handleButtonClick("Lista")}
+        } hover:bg-blue-500 hover:border-blue-300 hover:text-white transition-colors`}
+        onClick={() => handleButtonClick("List")}
       >
-        {buttonLabels["Lista"]}
+        <UsersIcon className="h-6 w-6" />
+        <p>{buttonLabels["List"]}</p>
       </Link>
       <Link
-        to="/cereripacienti"
-        className={`w-1/2 h-16 p-3 rounded-lg mb-4 focus:outline-none text-lg text-center ${
-          activeButton === "Cereri"
+        to="/pacients/requests"
+        className={`w-full flex space-x-2 items-center p-2 rounded-lg focus:outline-none text-lg text-left text-blue-500 ${
+          activeButton === "Requests"
             ? "bg-blue-500 border-4 border-blue-800 text-white"
             : "bg-white border border-blue-700 text-blue-700"
-        } hover:bg-blue-300 hover:border-blue-300 hover:text-white transition-colors`}
-        onClick={() => handleButtonClick("Cereri")}
+        } hover:bg-blue-500 hover:border-blue-300 hover:text-white transition-colors`}
+        onClick={() => handleButtonClick("Requests")}
       >
-        {buttonLabels["Cereri"]}
+        <EnvelopeIcon className="h-6 w-6" />
+        <p>{buttonLabels["Requests"]}</p>
       </Link>
       <button
-        className={`w-1/2 h-16 p-3 rounded-lg mb-4 focus:outline-none text-lg text-center ${
-          activeButton === "Delogare"
+        className={`w-full flex space-x-2 items-center p-2 rounded-lg focus:outline-none text-lg text-left text-blue-500 ${
+          activeButton === "Logout"
             ? "bg-blue-500 border-4 border-blue-800 text-white"
             : "bg-white border border-blue-700 text-blue-700"
-        } hover:bg-blue-300 hover:border-blue-300 hover:text-white transition-colors`}
+        } hover:bg-blue-500 hover:border-blue-300 hover:text-white transition-colors`}
         onClick={() => {
-          handleButtonClick("Delogare");
-          handleLogout(); // Apelarea funcției de delogare la apăsarea butonului
+          handleButtonClick("Logout");
+          handleLogout();
         }}
       >
-        {buttonLabels["Delogare"]}
+        <ArrowLeftStartOnRectangleIcon className="h-6 w-6" />
+        <p>{buttonLabels["Logout"]}</p>
       </button>
     </div>
   );

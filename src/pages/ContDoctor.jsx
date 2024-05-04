@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import userIcon from "../assets/doctor.png";
 import ModalEditarePacient from "./ModalEditarePacient";
-import ModalStergere from "./ModalStergere";
+import DeletePacientModal from "./DeletePacientModal";
 
 function ContDoctor() {
   // Starea pentru gestionarea butoanelor și a modalelor

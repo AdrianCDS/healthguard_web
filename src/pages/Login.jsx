@@ -13,11 +13,11 @@ function Login() {
           backgroundSize: "cover",
         }}
       >
-        <div className="bg-cover h-screen flex items-center justify-center bg-white login-bg m-0">
+        <div className="bg-cover h-full pb-64 flex items-center justify-center bg-white login-bg">
           <div className="p-8 rounded-lg text-blue-800 text-left mx-auto">
             <div style={{ width: "488px", height: "283px" }}>
               <h1 className="text-3xl font-bold mb-10 text-center">
-                Intrare în Cont
+                Log into your account
               </h1>
 
               <form className="w-full">
@@ -26,13 +26,12 @@ function Login() {
                     className="block text-gray-700 text-sm font-bold mb-2"
                     htmlFor="username"
                   >
-                    Nume Utilizator
+                    Email
                   </label>
                   <input
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     id="username"
                     type="text"
-                    placeholder="Nume Utilizator"
                   />
                 </div>
                 <div className="mb-10">
@@ -40,13 +39,12 @@ function Login() {
                     className="block text-gray-700 text-sm font-bold mb-2"
                     htmlFor="password"
                   >
-                    Parolă
+                    Password
                   </label>
                   <input
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     id="password"
                     type="password"
-                    placeholder="**********"
                   />
                 </div>
                 <div className="mb-10">
@@ -54,20 +52,19 @@ function Login() {
                     className="block text-gray-700 text-sm font-bold mb-2"
                     htmlFor="badgeNumber"
                   >
-                    Număr de Identificare (Badge number)
+                    Badge number
                   </label>
                   <input
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     id="badgeNumber"
                     type="text"
-                    placeholder="Număr de Identificare"
                   />
                 </div>
                 <div className="mb-10 w-100">
                   <div className="flex justify-center w-full">
                     <Link to="/dashboard" className="width-100">
                       <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-3 rounded w-full">
-                        Înregistrează-te
+                        Log in
                       </button>
                     </Link>
                   </div>

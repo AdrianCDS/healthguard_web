@@ -1,22 +1,22 @@
 import React, { useState, useEffect, useRef } from "react";
 import Select from "react-select";
 
-function AdaugaPacientModal({ onClose, onAddPacient }) {
+function AddPacientModal({ onClose, onAddPacient }) {
   const [step, setStep] = useState(1);
-  const [nume, setNume] = useState("");
-  const [prenume, setPrenume] = useState("");
-  const [varsta, setVarsta] = useState("");
+  const [first_name, setFirstName] = useState("");
+  const [last_name, setLastName] = useState("");
+  const [age, setAge] = useState("");
   const [cnp, setCNP] = useState("");
-  const [telefon, setTelefon] = useState("");
+  const [phone_number, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
-  const [locMunca, setLocMunca] = useState("");
-  const [profesie, setProfesie] = useState("");
-  const [tara, setTara] = useState("");
-  const [oras, setOras] = useState("");
-  const [strada, setStrada] = useState("");
-  const [numar, setNumar] = useState("");
-  const [alergii, setAlergii] = useState([]);
-  const optiuniAlergii = [
+  const [work_place, setWorkPlace] = useState("");
+  const [occupation, setOccupation] = useState("");
+  const [country, setCountry] = useState("");
+  const [city, setCity] = useState("");
+  const [street, setStreet] = useState("");
+  const [street_number, setStreetNumber] = useState("");
+  const [alergies, setAlergies] = useState([]);
+  const optionsAlergies = [
     { value: "alergie1", label: "Alergie 1" },
     { value: "alergie2", label: "Alergie 2" },
     // Adaugă alte opțiuni aici
@@ -53,16 +53,16 @@ function AdaugaPacientModal({ onClose, onAddPacient }) {
     e.preventDefault();
 
     const pacientNou = {
-      nume,
-      prenume,
-      varsta,
+      first_name,
+      last_name,
+      age,
       cnp,
-      telefon,
+      phone_number,
       email,
-      locMunca,
-      profesie,
-      adresa: { tara, oras, strada, numar },
-      alergii: [],
+      work_place,
+      occupation,
+      adresa: { country, city, street, street_number },
+      alergies: [],
     };
     onAddPacient(pacientNou);
     onClose();
@@ -75,25 +75,25 @@ function AdaugaPacientModal({ onClose, onAddPacient }) {
   //   }));
   // };
 
-  const handleAlergiiChange = (selectedOptions) => {
-    const alergiiValues = selectedOptions.map((option) => option.value);
-    setAlergii(alergiiValues); // Actualizează starea 'alergii'
+  const handleAlergiesChange = (selectedOptions) => {
+    const alergiesValues = selectedOptions.map((option) => option.value);
+    setAlergies(alergiesValues); // Actualizează starea 'alergies'
   };
 
-  const handleAlergiiDelete = (removedAlergie) => {
-    const filteredAlergii = alergii.filter(
+  const handleAlergiesDelete = (removedAlergie) => {
+    const filteredAlergies = alergies.filter(
       (alergie) => alergie !== removedAlergie
     );
-    setAlergii(filteredAlergii); // Actualizează starea 'alergii'
+    setAlergies(filteredAlergies); // Actualizează starea 'alergies'
   };
 
-  const renderAlergiiChips = () => {
-    return alergii.map((alergie, index) => (
+  const renderAlergiesChips = () => {
+    return alergies.map((alergie, index) => (
       <div key={index} className="chip">
         {alergie}
         <button
           type="button"
-          onClick={() => handleAlergiiDelete(alergie)}
+          onClick={() => handleAlergiesDelete(alergie)}
         ></button>
       </div>
     ));
@@ -103,9 +103,12 @@ function AdaugaPacientModal({ onClose, onAddPacient }) {
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
       <div
         ref={modalRef}
-        className="bg-blue-100 rounded-lg p-8 w-1/2 h-3/4 overflow-y-auto"
+        className="relative bg-blue-100 rounded-lg p-8 w-1/2 h-3/4 overflow-y-auto"
       >
-        <span className="top-0 right-0 cursor-pointer" onClick={onClose}>
+        <span
+          className="absolute top-1 right-4 cursor-pointer text-2xl"
+          onClick={onClose}
+        >
           &times;
         </span>
         <div className="flex justify-between mb-4">
@@ -115,7 +118,7 @@ function AdaugaPacientModal({ onClose, onAddPacient }) {
             }`}
             onClick={() => setStep(1)}
           >
-            Pas 1
+            Step 1
           </button>
           <button
             className={`bg-blue-400 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-full mr-2 ${
@@ -124,7 +127,7 @@ function AdaugaPacientModal({ onClose, onAddPacient }) {
             onClick={() => setStep(2)}
             disabled={step === 1}
           >
-            Pas 2
+            Step 2
           </button>
           <button
             className={`bg-blue-400 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-full mr-2 ${
@@ -133,34 +136,34 @@ function AdaugaPacientModal({ onClose, onAddPacient }) {
             onClick={() => setStep(3)}
             disabled={step === 3}
           >
-            Pas 3
+            Step 3
           </button>
         </div>
         {step === 1 && (
           <form onSubmit={handleNextStep}>
             <input
               type="text"
-              value={nume}
-              onChange={(e) => setNume(e.target.value)}
-              placeholder="Nume"
+              value={first_name}
+              onChange={(e) => setFirstName(e.target.value)}
+              placeholder="First name"
               className={inputClassName}
               required
             />
             <input
               type="text"
-              value={prenume}
-              onChange={(e) => setPrenume(e.target.value)}
-              placeholder="Prenume"
+              value={last_name}
+              onChange={(e) => setLastName(e.target.value)}
+              placeholder="Last name"
               className={inputClassName}
               required
             />
             <select
-              value={varsta}
-              onChange={(e) => setVarsta(e.target.value)}
+              value={age}
+              onChange={(e) => setAge(e.target.value)}
               className={inputClassName}
               required
             >
-              <option value="">Selectează vârsta</option>
+              <option value="">Select age</option>
               {Array.from({ length: 101 }, (_, i) => (
                 <option key={i} value={i}>
                   {i}
@@ -183,14 +186,14 @@ function AdaugaPacientModal({ onClose, onAddPacient }) {
 
             <input
               type="tel"
-              value={telefon}
+              value={phone_number}
               onChange={(e) => {
-                const inputTelefon = e.target.value;
-                if (/^\d{0,15}$/.test(inputTelefon)) {
-                  setTelefon(inputTelefon);
+                const inputPhoneNumber = e.target.value;
+                if (/^\d{0,15}$/.test(inputPhoneNumber)) {
+                  setPhoneNumber(inputPhoneNumber);
                 }
               }}
-              placeholder="Telefon"
+              placeholder="Phone number"
               className={inputClassName}
               required
             />
@@ -205,16 +208,16 @@ function AdaugaPacientModal({ onClose, onAddPacient }) {
 
             <input
               type="text"
-              value={locMunca}
-              onChange={(e) => setLocMunca(e.target.value)}
-              placeholder="Loc de munca"
+              value={work_place}
+              onChange={(e) => setWorkPlace(e.target.value)}
+              placeholder="Work place"
               className={inputClassName}
             />
             <input
               type="text"
-              value={profesie}
-              onChange={(e) => setProfesie(e.target.value)}
-              placeholder="Profesie"
+              value={occupation}
+              onChange={(e) => setOccupation(e.target.value)}
+              placeholder="Occupation"
               className={inputClassName}
             />
             <button
@@ -222,7 +225,7 @@ function AdaugaPacientModal({ onClose, onAddPacient }) {
               onClick={handleNextStep}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
             >
-              Urmatorul
+              Next
             </button>
           </form>
         )}
@@ -230,33 +233,33 @@ function AdaugaPacientModal({ onClose, onAddPacient }) {
           <form onSubmit={handleNextStep}>
             <input
               type="text"
-              value={tara}
-              onChange={(e) => setTara(e.target.value)}
-              placeholder="Tara"
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
+              placeholder="Country"
               className={inputClassName}
               required
             />
             <input
               type="text"
-              value={oras}
-              onChange={(e) => setOras(e.target.value)}
-              placeholder="Oras"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              placeholder="City"
               className={inputClassName}
               required
             />
             <input
               type="text"
-              value={strada}
-              onChange={(e) => setStrada(e.target.value)}
-              placeholder="Strada"
+              value={street}
+              onChange={(e) => setStreet(e.target.value)}
+              placeholder="Street"
               className={inputClassName}
               required
             />
             <input
               type="text"
-              value={numar}
-              onChange={(e) => setNumar(e.target.value)}
-              placeholder="Numar"
+              value={street_number}
+              onChange={(e) => setStreetNumber(e.target.value)}
+              placeholder="Street number"
               className={inputClassName}
               required
             />
@@ -265,45 +268,47 @@ function AdaugaPacientModal({ onClose, onAddPacient }) {
               onClick={handlePrevStep}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
             >
-              Anterior
+              Back
             </button>
             <button
               type="button"
               onClick={handleNextStep}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
             >
-              Urmatorul
+              Next
             </button>
           </form>
         )}
         {step === 3 && (
-          <form onSubmit={handleSubmit}>
-            <div className="alergii-dropdown gap-3">
+          <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+            <div className="alergies-dropdown gap-3">
               <Select
                 isMulti
-                options={optiuniAlergii}
-                value={alergii.map((alergie) => ({
+                options={optionsAlergies}
+                value={alergies.map((alergie) => ({
                   label: alergie,
                   value: alergie,
                 }))}
-                onChange={handleAlergiiChange}
-                placeholder="Selectează alergii..."
+                onChange={handleAlergiesChange}
+                placeholder="Select alergies..."
               />
             </div>
-            {/* <div className="alergii-chips  ">{renderAlergiiChips()}</div> */}
-            <button
-              type="button"
-              onClick={handlePrevStep}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
-            >
-              Anterior
-            </button>
-            <button
-              type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Adaugă Pacient
-            </button>
+            {/* <div className="alergies-chips  ">{renderAlergiesChips()}</div> */}
+            <div>
+              <button
+                type="button"
+                onClick={handlePrevStep}
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
+              >
+                Back
+              </button>
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              >
+                Add pacient
+              </button>
+            </div>
           </form>
         )}
       </div>
@@ -311,4 +316,4 @@ function AdaugaPacientModal({ onClose, onAddPacient }) {
   );
 }
 
-export default AdaugaPacientModal;
+export default AddPacientModal;

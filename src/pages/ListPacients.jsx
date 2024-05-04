@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import RenderPacient from "./RenderPacient";
-import AdaugaPacientModal from "./AdaugaPacientModal";
+import PacientDetailsCard from "./PacientDetailsCard";
+import AddPacientModal from "./AddPacientModal";
 
-function ListaPacienti() {
+function ListPacients() {
   const [ascendingOrder, setAscendingOrder] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -58,7 +58,7 @@ function ListaPacienti() {
         <div className="h-1/5 flex w-4/5 justify-between items-center">
           <Link to="/dashboard">
             <button className="bg-blue-400 hover:bg-blue-700 text-white font-bold py-2 px-4 border-2 border-blue-500 rounded">
-              ⟵ Înapoi
+              ⟵ Back
             </button>
           </Link>
 
@@ -66,25 +66,25 @@ function ListaPacienti() {
             className="bg-blue-400 hover:bg-blue-700 text-white font-bold py-2 px-4 border-2 border-blue-500 rounded"
             onClick={handleOpenModal}
           >
-            Adauga Pacienti
+            Add pacient
           </button>
         </div>
-        <div className="h-4/5 flex flex-col w-3/4 ">
-          <div className="h-1/5 w-full justify-between flex flex-row">
+        <div className="flex flex-col space-y-4 w-full">
+          <div className="justify-between items-center px-56 py-4 flex">
             <input
-              className="h-1/2 rounded-full bg-blue-100  border-2 border-blue-500  placeholder-blue-400 focus:text-blue-800 focus:border-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="⌕ Cauta pacienti"
+              className="rounded-full bg-blue-100  border-2 border-blue-500  placeholder-blue-400 focus:text-blue-800 focus:border-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 p-4"
+              placeholder="Search for a pacient"
             />
             <button
-              className="w-1/6 rounded-full h-1/2 bg-blue-100 hover:bg-blue-700 text-blue-800 font-bold  border-2 border-blue-500 rounded "
+              className="p-4 rounded-full bg-blue-100 hover:bg-blue-500 text-blue-800 hover:text-white font-bold  border-2 border-blue-500 rounded "
               onClick={handleFilterClick}
             >
-              {ascendingOrder ? "↑ Crescător" : "↓ Descrescător"}
+              {ascendingOrder ? "↑ Ascending" : "↓ Descending"}
             </button>
           </div>
-          <div className="h-4/5 w-full flex flex-col gap-3 items-center">
+          <div className="w-full flex flex-col gap-3 items-center">
             {pacienti.map((pacient, index) => (
-              <RenderPacient
+              <PacientDetailsCard
                 key={index}
                 nume={pacient.nume}
                 cnp={pacient.cnp}
@@ -96,7 +96,7 @@ function ListaPacienti() {
         </div>
       </div>
       {modalOpen && ( // Afiseaza modalul doar daca modalOpen este true
-        <AdaugaPacientModal
+        <AddPacientModal
           onClose={handleCloseModal} // Pasam functia de inchidere a modalei ca prop pentru a putea fi apelata din interiorul modalei
           onAddPacient={handleAddPacient} // Pasam functia pentru adaugarea pacientului ca prop
         />
@@ -105,4 +105,4 @@ function ListaPacienti() {
   );
 }
 
-export default ListaPacienti;
+export default ListPacients;

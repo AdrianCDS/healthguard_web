@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import userIcon from "../assets/user.png";
 import ModalEditarePacient from "./ModalEditarePacient";
-import ModalStergere from "./ModalStergere";
+import DeletePacientModal from "./DeletePacientModal";
 
 function DetaliiPacient() {
   const [activeButton, setActiveButton] = useState(null);
@@ -78,7 +78,7 @@ function DetaliiPacient() {
       <div className="h-screen w-full flex flex-col items-center">
         <div className="h-1/5 flex w-full justify-between items-center px-4">
           <Link
-            to="/listapacienti"
+            to="/ListPacients"
             className="bg-blue-400 hover:bg-blue-700 text-white font-bold py-2 px-4 border-2 border-blue-500 rounded "
           >
             ⟵ Înapoi
@@ -238,7 +238,7 @@ function DetaliiPacient() {
         initialData={pacient}
       />
       {stergereModalOpen && (
-        <ModalStergere
+        <DeletePacientModal
           onCancel={closeStergereModal}
           onConfirm={handleConfirmStergere}
         />
