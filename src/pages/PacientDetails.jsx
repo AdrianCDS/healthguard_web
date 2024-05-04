@@ -94,7 +94,11 @@ function PacientDetails() {
               {Object.entries(buttonLabels).map(([buttonName, buttonText]) => (
                 <Link
                   key={buttonName}
-                  to={buttonName === "Recommandation" ? "/recommandations" : ""}
+                  to={
+                    buttonName === "Recommandation"
+                      ? "/pacients/recommandations/id"
+                      : ""
+                  }
                   className={`w-3/4 h-16 p-3 rounded-lg mb-4 focus:outline-none text-lg text-center flex items-center justify-center ${
                     activeButton === buttonName
                       ? "bg-blue-500 border-4 border-blue-800 text-white"

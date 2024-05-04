@@ -10,7 +10,7 @@ import ListPacients from "./pages/ListPacients";
 import Dashboard from "./pages/Dashboard";
 import PacientRequests from "./pages/PacientRequests";
 import PacientDetails from "./pages/PacientDetails";
-import Recomandari from "./pages/Recomandari";
+import Recommandations from "./pages/Recommandations";
 // import { Modal } from "@mui/material";
 import Account from "./pages/Account";
 
@@ -33,7 +33,10 @@ function App() {
         <Route path="/pacients" element={<ListPacients />} />
         <Route path="/pacients/requests" element={<PacientRequests />} />
         <Route path="/pacients/details/id" element={<PacientDetails />} />
-        <Route path="/pacients/recommandations/id" element={<Recomandari />} />
+        <Route
+          path="/pacients/recommandations/id"
+          element={<Recommandations />}
+        />
         <Route path="/account" element={<Account />} />
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
