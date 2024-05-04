@@ -8,7 +8,7 @@ import TestPage from "./pages/TestPage";
 import StartPage from "./pages/StartPage";
 import ListPacients from "./pages/ListPacients";
 import Dashboard from "./pages/Dashboard";
-import CereriPacienti from "./pages/CereriPacienti";
+import PacientRequests from "./pages/PacientRequests";
 import PacientDetails from "./pages/PacientDetails";
 import Recomandari from "./pages/Recomandari";
 // import { Modal } from "@mui/material";
@@ -31,7 +31,7 @@ function App() {
         <Route path="/logout" element={<Logout />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/pacients" element={<ListPacients />} />
-        <Route path="/pacients/requests" element={<CereriPacienti />} />
+        <Route path="/pacients/requests" element={<PacientRequests />} />
         <Route path="/pacients/details/id" element={<PacientDetails />} />
         <Route path="/pacients/recommandations/id" element={<Recomandari />} />
         <Route path="/account" element={<Account />} />

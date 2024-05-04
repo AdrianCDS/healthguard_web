@@ -65,6 +65,10 @@ function Account() {
                   <p className="text-gray-600">{doctor.number_of_pacients}</p>
                 </div>
               </div>
+              <img
+                src="/src/assets/bookmarks_artwork.svg"
+                className="w-1/2 h-1/2 pt-12"
+              />
             </div>
           </div>
         </div>
