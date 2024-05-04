@@ -12,7 +12,7 @@ import CereriPacienti from "./pages/CereriPacienti";
 import PacientDetails from "./pages/PacientDetails";
 import Recomandari from "./pages/Recomandari";
 // import { Modal } from "@mui/material";
-import ContDoctor from "./pages/ContDoctor";
+import Account from "./pages/Account";
 
 // Modal.setAppElement("#root");
 
@@ -34,7 +34,7 @@ function App() {
         <Route path="/pacients/requests" element={<CereriPacienti />} />
         <Route path="/pacients/details/id" element={<PacientDetails />} />
         <Route path="/pacients/recommandations/id" element={<Recomandari />} />
-        <Route path="/account" element={<ContDoctor />} />
+        <Route path="/account" element={<Account />} />
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </BrowserRouter>

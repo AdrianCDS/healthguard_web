@@ -109,7 +109,7 @@ function PacientDetails() {
           </div>
           <div className="w-3/4 flex flex-col divide-y-2 p-4 mt-12">
             <div>
-              <p className="text-lg">Pacient info</p>
+              <p className="text-lg font-semibold">Pacient info</p>
               <div className="flex pt-1 pb-4">
                 <div className="w-1/2">
                   <p>Age</p>
@@ -123,7 +123,7 @@ function PacientDetails() {
             </div>
 
             <div>
-              <p className="text-lg pt-2">Address</p>
+              <p className="text-lg font-semibold pt-2">Address</p>
               <div className="flex pt-1 pb-4">
                 <div className="w-1/2">
                   <h6>Country</h6>
@@ -149,7 +149,7 @@ function PacientDetails() {
             </div>
 
             <div>
-              <p className="text-lg pt-2">Contact</p>
+              <p className="text-lg font-semibold pt-2">Contact</p>
               <div className="flex pt-1 pb-4">
                 <div className="w-1/2">
                   <h6>Email</h6>
@@ -165,7 +165,7 @@ function PacientDetails() {
             </div>
 
             <div>
-              <p className="text-lg pt-2">Alerts</p>
+              <p className="text-lg font-semibold pt-2">Alerts</p>
               <div className="flex pt-1 pb-4">
                 <div className="w-1/2">
                   <div className="flex space-x-2 items-center">
@@ -209,7 +209,7 @@ function PacientDetails() {
             </div>
 
             <div>
-              <p className="text-lg pt-2">Recommandations</p>
+              <p className="text-lg font-semibold pt-2">Recommandations</p>
               <div className="flex pt-1 pb-4">
                 <div className="w-1/2">
                   <div className="flex space-x-2 items-center">
@@ -229,7 +229,7 @@ function PacientDetails() {
             </div>
 
             <div>
-              <p className="text-lg pt-2">Allergies</p>
+              <p className="text-lg font-semibold pt-2">Allergies</p>
               <div className="flex pt-1 pb-4">
                 <div className="w-1/2">
                   <p className="text-gray-600">{pacient.allergies.allergy_1}</p>
