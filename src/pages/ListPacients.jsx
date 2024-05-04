@@ -25,24 +25,24 @@ function ListPacients() {
     console.log("Pacient nou:", pacientNou);
   };
 
-  const pacienti = [
+  const pacients = [
     {
-      nume: "John Doe",
+      name: "John Doe",
       cnp: "1234567890123",
-      telefon: "0712345678",
-      status: "activ",
+      phone_number: "0712345678",
+      email: "john.doe@gmail.com",
     },
     {
-      nume: "Jane Smith",
+      name: "Jane Smith",
       cnp: "9876543210987",
-      telefon: "0723456789",
-      status: "inactiv",
+      phone_number: "0723456789",
+      email: "jane.smith@gmail.com",
     },
     {
-      nume: "Tom Jay",
+      name: "Tom Jay",
       cnp: "9876543210987",
-      telefon: "0623456789",
-      status: "inactiv",
+      phone_number: "0623456789",
+      email: "tom.jay@gmail.com",
     },
     // Alți pacienți...
   ];
@@ -57,13 +57,13 @@ function ListPacients() {
       <div className="h-screen w-full flex flex-col items-center ">
         <div className="h-1/5 flex w-4/5 justify-between items-center">
           <Link to="/dashboard">
-            <button className="bg-blue-400 hover:bg-blue-700 text-white font-bold py-2 px-4 border-2 border-blue-500 rounded">
+            <button className="bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 border-2 border-blue-500 rounded">
               ⟵ Back
             </button>
           </Link>
 
           <button
-            className="bg-blue-400 hover:bg-blue-700 text-white font-bold py-2 px-4 border-2 border-blue-500 rounded"
+            className="bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 border-2 border-blue-500 rounded"
             onClick={handleOpenModal}
           >
             Add pacient
@@ -76,20 +76,20 @@ function ListPacients() {
               placeholder="Search for a pacient"
             />
             <button
-              className="p-4 rounded-full bg-blue-100 hover:bg-blue-500 text-blue-800 hover:text-white font-bold  border-2 border-blue-500 rounded "
+              className="p-4 rounded-full bg-blue-700 hover:bg-blue-500 text-white font-bold  border-2 border-blue-500 rounded "
               onClick={handleFilterClick}
             >
               {ascendingOrder ? "↑ Ascending" : "↓ Descending"}
             </button>
           </div>
           <div className="w-full flex flex-col gap-3 items-center">
-            {pacienti.map((pacient, index) => (
+            {pacients.map((pacient, index) => (
               <PacientDetailsCard
                 key={index}
-                nume={pacient.nume}
+                name={pacient.name}
                 cnp={pacient.cnp}
-                telefon={pacient.telefon}
-                status={pacient.status}
+                phone_number={pacient.phone_number}
+                email={pacient.email}
               />
             ))}
           </div>
