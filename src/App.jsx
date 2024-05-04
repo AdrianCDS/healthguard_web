@@ -9,7 +9,7 @@ import StartPage from "./pages/StartPage";
 import ListPacients from "./pages/ListPacients";
 import Dashboard from "./pages/Dashboard";
 import CereriPacienti from "./pages/CereriPacienti";
-import DetaliiPacient from "./pages/DetaliiPacient";
+import PacientDetails from "./pages/PacientDetails";
 import Recomandari from "./pages/Recomandari";
 // import { Modal } from "@mui/material";
 import ContDoctor from "./pages/ContDoctor";
@@ -32,7 +32,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/pacients" element={<ListPacients />} />
         <Route path="/pacients/requests" element={<CereriPacienti />} />
-        <Route path="/pacients/details/id" element={<DetaliiPacient />} />
+        <Route path="/pacients/details/id" element={<PacientDetails />} />
         <Route path="/pacients/recommandations/id" element={<Recomandari />} />
         <Route path="/account" element={<ContDoctor />} />
         <Route path="*" element={<NotFound />}></Route>

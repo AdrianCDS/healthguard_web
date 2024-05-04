@@ -56,8 +56,8 @@ function ModalEditarePacient({ isOpen, onClose, initialData }) {
             <label className="block mb-1">Nume</label>
             <input
               type="text"
-              name="nume"
-              value={editedPacient.nume}
+              name="name"
+              value={editedPacient.name}
               onChange={handleChange}
               className={inputClassName}
             />
@@ -66,8 +66,8 @@ function ModalEditarePacient({ isOpen, onClose, initialData }) {
             <label className="block mb-1">Varsta</label>
             <input
               type="text"
-              name="varsta"
-              value={editedPacient.varsta}
+              name="age"
+              value={editedPacient.age}
               onChange={handleChange}
               className={inputClassName}
             />
@@ -76,8 +76,8 @@ function ModalEditarePacient({ isOpen, onClose, initialData }) {
             <label className="block mb-1">Firma</label>
             <input
               type="text"
-              name="firma"
-              value={editedPacient.firma}
+              name="work_place"
+              value={editedPacient.work_place}
               onChange={handleChange}
               className={inputClassName}
             />
@@ -86,8 +86,8 @@ function ModalEditarePacient({ isOpen, onClose, initialData }) {
             <label className="block mb-1">Tara</label>
             <input
               type="text"
-              name="tara"
-              value={editedPacient.adresa.tara}
+              name="country"
+              value={editedPacient.address.country}
               onChange={handleChange}
               className={inputClassName}
             />
@@ -96,8 +96,8 @@ function ModalEditarePacient({ isOpen, onClose, initialData }) {
             <label className="block mb-1">Oras</label>
             <input
               type="text"
-              name="oras"
-              value={editedPacient.adresa.oras}
+              name="city"
+              value={editedPacient.address.city}
               onChange={handleChange}
               className={inputClassName}
             />
@@ -106,8 +106,8 @@ function ModalEditarePacient({ isOpen, onClose, initialData }) {
             <label className="block mb-1">Strada</label>
             <input
               type="text"
-              name="strada"
-              value={editedPacient.adresa.strada}
+              name="street"
+              value={editedPacient.address.street}
               onChange={handleChange}
               className={inputClassName}
             />
@@ -116,8 +116,8 @@ function ModalEditarePacient({ isOpen, onClose, initialData }) {
             <label className="block mb-1">Numar</label>
             <input
               type="text"
-              name="numar"
-              value={editedPacient.adresa.numar}
+              name="street_number"
+              value={editedPacient.address.street_number}
               onChange={handleChange}
               className={inputClassName}
             />
@@ -126,8 +126,8 @@ function ModalEditarePacient({ isOpen, onClose, initialData }) {
             <label className="block mb-1">Email</label>
             <input
               type="text"
-              name="mail"
-              value={editedPacient.contact.mail}
+              name="email"
+              value={editedPacient.contact.email}
               onChange={handleChange}
               className={inputClassName}
             />
@@ -136,8 +136,8 @@ function ModalEditarePacient({ isOpen, onClose, initialData }) {
             <label className="block mb-1">Telefon</label>
             <input
               type="text"
-              name="telefon"
-              value={editedPacient.contact.telefon}
+              name="phone_number"
+              value={editedPacient.contact.phone_number}
               onChange={handleChange}
               className={inputClassName}
             />
@@ -146,8 +146,8 @@ function ModalEditarePacient({ isOpen, onClose, initialData }) {
             <label className="block mb-1">Profesie</label>
             <input
               type="text"
-              name="job"
-              value={editedPacient.job}
+              name="occupation"
+              value={editedPacient.occupation}
               onChange={handleChange}
               className={inputClassName}
             />
@@ -156,8 +156,8 @@ function ModalEditarePacient({ isOpen, onClose, initialData }) {
             <label className="block mb-1">Alergii</label>
             <input
               type="text"
-              name="alergii"
-              value={editedPacient.alergii.alergie1}
+              name="allergies"
+              value={editedPacient.allergies.allergy_1}
               onChange={handleChange}
               className={inputClassName}
             />
