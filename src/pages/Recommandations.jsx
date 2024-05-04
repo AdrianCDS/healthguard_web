@@ -3,6 +3,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const classNameElement =
   "mt-2 w-full max-w-md border-2 border-blue-200 h-10 pl-3 rounded-lg focus:outline-none overflow-hidden  transition-all duration-500 hover:border-blue-500 focus:border-blue-500 focus:shadow-outline focus:bg-white";
@@ -120,44 +121,53 @@ export default function Recommandations() {
 
   return (
     <div
-      className="bg-cover h-screen "
+      className="h-screen"
       style={{
         backgroundImage: "url('src/assets/login-background.PNG')",
         backgroundSize: "cover",
       }}
     >
-      <div className="h-screen pl-12 flex items-start justify-center mx-auto">
-        <div className="w-1/2 pt-36 px-16 h-full">
-          <DisplayRecommandations recommandations={pacient.recommandations} />
-        </div>
-        <div className="w-1/2 h-full flex flex-col px-8 pt-36">
-          <div className="w-full max-w-md">
-            <RecommandationsDropdown
-              recommandations={predefinedRecommandations}
-              onAddedRecommandation={handleAddRecommandation}
-              className="w-full"
+      <div className="flex flex-col items-start h-full">
+        <Link
+          to="/pacients/details/id"
+          className="bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 border-2 border-blue-500 rounded ml-28 mt-16"
+        >
+          ⟵ Back
+        </Link>
+
+        <div className="h-screen w-full pl-12 flex items-start justify-center mx-auto">
+          <div className="w-1/2 pt-24 px-16 h-full">
+            <DisplayRecommandations recommandations={pacient.recommandations} />
+          </div>
+          <div className="w-1/2 h-full flex flex-col px-8 pt-24">
+            <div className="w-full max-w-md">
+              <RecommandationsDropdown
+                recommandations={predefinedRecommandations}
+                onAddedRecommandation={handleAddRecommandation}
+                className="w-full"
+              />
+            </div>
+            <div className="w-full max-w-md">
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker label="Start date" className="w-full" />
+              </LocalizationProvider>
+            </div>
+            <input
+              className={classNameElement}
+              type="text"
+              placeholder="Duration in days"
             />
+            <textarea
+              className="mt-4 w-full max-w-md border-2 border-gray-300 h-32 pl-3 pt-3 rounded-lg focus:outline-none resize-none bg-blue-100"
+              placeholder="Notes (optional)"
+            ></textarea>
+            <button
+              className="w-1/2 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg mt-4"
+              onClick={handleAddPacientRecommandation}
+            >
+              Add recommandation to this pacient
+            </button>
           </div>
-          <div className="w-full max-w-md">
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker label="Start date" className="w-full" />
-            </LocalizationProvider>
-          </div>
-          <input
-            className={classNameElement}
-            type="text"
-            placeholder="Duration in days"
-          />
-          <textarea
-            className="mt-4 w-full max-w-md border-2 border-gray-300 h-32 pl-3 pt-3 rounded-lg focus:outline-none resize-none bg-blue-100"
-            placeholder="Notes (optional)"
-          ></textarea>
-          <button
-            className="w-1/2 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg mt-4"
-            onClick={handleAddPacientRecommandation}
-          >
-            Add recommandation to this pacient
-          </button>
         </div>
       </div>
     </div>
