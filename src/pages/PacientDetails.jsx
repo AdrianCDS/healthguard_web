@@ -76,7 +76,7 @@ function PacientDetails() {
   return (
     <div
       className="w-full bg-cover h-screen flex justify-between bg-white"
-      style={{ backgroundImage: "url('src/assets/detaliibackground.PNG')" }}
+      style={{ backgroundImage: "url('src/assets/abstract_background_2.svg')" }}
     >
       <div className="w-full flex flex-col items-center p-8">
         <div className="w-full flex">

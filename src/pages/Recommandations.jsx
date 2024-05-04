@@ -123,7 +123,7 @@ export default function Recommandations() {
     <div
       className="h-screen"
       style={{
-        backgroundImage: "url('src/assets/login-background.PNG')",
+        backgroundImage: "url('src/assets/abstract_background_2.svg')",
         backgroundSize: "cover",
       }}
     >

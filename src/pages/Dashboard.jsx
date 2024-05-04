@@ -47,7 +47,7 @@ export default function Dashboard() {
     <div
       className="w-full bg-cover h-screen flex justify-between bg-white"
       style={{
-        backgroundImage: "url('src/assets/dashboard.PNG')",
+        backgroundImage: "url('src/assets/abstract_background_2.svg')",
         backgroundSize: "cover",
       }}
     >
@@ -65,7 +65,7 @@ export default function Dashboard() {
       <div className="w-3/4 flex px-32 pt-32 justify-between items-start">
         <div class="flex flex-col space-y-4 h-full pb-32">
           <div className="flex justify-between items-center gap-5">
-            <div className="flex flex-col items-end border border-blue-500 border-4 rounded-lg text-center p-4">
+            <div className="flex flex-col bg-white items-end border border-blue-300 border-4 rounded-lg text-center p-4">
               <img
                 src="src/assets/pacient_wheelchair_artwork.svg"
                 class="w-36 h-36"
@@ -75,7 +75,7 @@ export default function Dashboard() {
               </p>
               <p className="text-black font-bold text-lg italic">6</p>
             </div>
-            <div className="flex flex-col items-end border border-blue-500 border-4 rounded-lg text-center p-4">
+            <div className="flex flex-col bg-white items-end border border-blue-300 border-4 rounded-lg text-center p-4">
               <img src="src/assets/last_added_artwork.svg" class="w-36 h-36" />
               <p className="font-semibold text-gray-700 text-md">
                 Last added pacient
@@ -84,7 +84,7 @@ export default function Dashboard() {
                 user@gmail.com
               </p>
             </div>
-            <div className="flex flex-col items-end border border-blue-500 border-4 rounded-lg text-center p-4">
+            <div className="flex flex-col bg-white items-end border border-blue-300 border-4 rounded-lg text-center p-4">
               <img src="src/assets/schedule_artwork.svg" class="w-36 h-36" />
               <p className="font-semibold text-gray-700 text-md">
                 Next appointment
@@ -93,7 +93,7 @@ export default function Dashboard() {
             </div>
           </div>
           <div className="h-full flex justify-between gap-4">
-            <div className="border border-blue-500 border-4  rounded-lg text-center bg-blue-400 h-auto p-4">
+            <div className="border border-blue-400 border-4  rounded-lg text-center bg-blue-400 h-auto p-4">
               <p className="text-white pb-2 text-2xl font-bold ">
                 Last added pacients
               </p>
@@ -120,7 +120,7 @@ export default function Dashboard() {
                 />
               </div>
             </div>
-            <div className="border border-blue-500 border-4  rounded-lg text-center bg-blue-400 p-4">
+            <div className="border border-blue-400 border-4  rounded-lg text-center bg-blue-400 p-4">
               <p className="text-white pb-2 text-2xl font-bold ">
                 Future appointments
               </p>
@@ -140,7 +140,7 @@ export default function Dashboard() {
           </div>
         </div>
         <div className="h-full pb-32 flex justify-center gap-3">
-          <div className="border border-blue-500 border-4  rounded-lg text-center bg-blue-400 h-auto h-full p-4">
+          <div className="border border-blue-400 border-4  rounded-lg text-center bg-blue-400 h-auto h-full p-4">
             <p className="text-white text-2xl font-bold pb-2">
               Triggered alerts
             </p>

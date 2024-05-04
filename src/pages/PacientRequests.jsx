@@ -25,9 +25,9 @@ function PacientRequests() {
 
   return (
     <div
-      className="h-screen flex items-center justify-center bg-white"
+      className="h-screen flex items-center justify-center"
       style={{
-        backgroundImage: "url('src/assets/login-background.PNG')",
+        backgroundImage: "url('src/assets/abstract_background.svg')",
         backgroundSize: "cover",
       }}
     >
