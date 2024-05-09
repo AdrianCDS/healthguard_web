@@ -1,7 +1,7 @@
 import "./../assets/general-styles.css";
 import Navbar from "./Navbar";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, setError } from "react";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { AUTH_TOKEN } from "../constants";
 
@@ -28,6 +28,8 @@ function Login() {
       navigate("/dashboard");
     },
     onError: (error) => {
+      let formError = document.getElementById("form-error");
+      formError.innerHTML = "Invalid credentials";
       console.error("ERROR: " + error);
     },
   });
@@ -65,6 +67,7 @@ function Login() {
               </h1>
 
               <form className="w-full">
+                <div id="form-error" className="text-red-500 py-2"></div>
                 <div className="mb-10">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
@@ -129,7 +132,7 @@ function Login() {
                   <div className="flex justify-center w-full">
                     <div
                       onClick={handleFormSubmit}
-                      className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-3 rounded w-full"
+                      className="bg-blue-500 hover:bg-blue-600 text-white text-center font-bold py-2 px-3 rounded w-full"
                     >
                       Log in
                     </div>

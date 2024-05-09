@@ -6,8 +6,10 @@ import {
   ArrowLeftStartOnRectangleIcon,
   ListBulletIcon,
 } from "@heroicons/react/24/solid";
+import { AUTH_TOKEN } from "../constants";
 
 function ButtonsGroup({ buttonLabels }) {
+  const authToken = localStorage.getItem(AUTH_TOKEN);
   const [activeButton, setActiveButton] = useState(null);
   const navigate = useNavigate();
 
@@ -18,7 +20,7 @@ function ButtonsGroup({ buttonLabels }) {
   const handleLogout = () => {
     const confirmation = window.confirm("Are you sure you want to logout?");
     if (confirmation) {
-      // handle logout logic here
+      localStorage.removeItem(AUTH_TOKEN);
       navigate("/login");
     }
   };
@@ -34,7 +36,7 @@ function ButtonsGroup({ buttonLabels }) {
         } hover:bg-blue-500 hover:border-blue-300 hover:text-white transition-colors`}
         onClick={() => handleButtonClick("Details")}
       >
-        <ListBulletIcon class="h-6 w-6" />
+        <ListBulletIcon className="h-6 w-6" />
         <p>{buttonLabels["Details"]}</p>
       </Link>
       <Link
