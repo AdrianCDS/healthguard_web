@@ -62,7 +62,7 @@ export default function Dashboard() {
           buttonLabels={buttonLabels}
           orientation="vertical"
         />
-        <img src="src/assets/medics_artwork.svg" class="pt-36" />
+        <img src="src/assets/medics_artwork.svg" className="pt-36" />
       </div>
       <div className="w-3/4 flex px-32 pt-32 justify-between items-start">
         <div class="flex flex-col space-y-4 h-full pb-32">
@@ -78,7 +78,10 @@ export default function Dashboard() {
               <p className="text-black font-bold text-lg italic">6</p>
             </div>
             <div className="flex flex-col bg-white items-end border border-blue-300 border-4 rounded-lg text-center p-4">
-              <img src="src/assets/last_added_artwork.svg" class="w-36 h-36" />
+              <img
+                src="src/assets/last_added_artwork.svg"
+                className="w-36 h-36"
+              />
               <p className="font-semibold text-gray-700 text-md">
                 Last added pacient
               </p>
@@ -87,7 +90,10 @@ export default function Dashboard() {
               </p>
             </div>
             <div className="flex flex-col bg-white items-end border border-blue-300 border-4 rounded-lg text-center p-4">
-              <img src="src/assets/schedule_artwork.svg" class="w-36 h-36" />
+              <img
+                src="src/assets/schedule_artwork.svg"
+                className="w-36 h-36"
+              />
               <p className="font-semibold text-gray-700 text-md">
                 Next appointment
               </p>
@@ -141,8 +147,8 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
-        <div className="h-full pb-32 flex justify-center gap-3">
-          <div className="border border-blue-400 border-4  overflow-y-auto rounded-lg text-center bg-blue-400 h-full p-4">
+        <div className="h-full pb-32 flex justify-center ml-4 gap-3">
+          <div className="border border-blue-400 border-4  overflow-y-auto rounded-lg text-center bg-blue-400 h-full p-4 ">
             <p className="text-white text-2xl  font-bold pb-2">
               Triggered alerts
             </p>
