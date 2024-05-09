@@ -4,8 +4,11 @@ import PatientDetailsSummaryCard from "./PatientDetailsSummaryCard";
 import AlertCard from "./AlertCard";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { AUTH_TOKEN } from "../constants";
 
 export default function Dashboard() {
+  const authToken = localStorage.getItem(AUTH_TOKEN);
+
   const buttonLabels = {
     Details: "Account details",
     List: "List pacients",

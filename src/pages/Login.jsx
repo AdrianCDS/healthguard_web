@@ -1,8 +1,52 @@
-import { Link } from "react-router-dom";
-import Navbar from "./Navbar";
 import "./../assets/general-styles.css";
+import Navbar from "./Navbar";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { gql, useMutation, useQuery } from "@apollo/client";
+import { AUTH_TOKEN } from "../constants";
 
 function Login() {
+  const [formState, setFormState] = useState({
+    email: "",
+    password: "",
+    badge_number: "",
+  });
+
+  const navigate = useNavigate();
+
+  const LOGIN_MUTATION = gql`
+    mutation LoginMutation($email: String!, $password: String!) {
+      loginUser(input: { email: $email, password: $password }) {
+        token
+      }
+    }
+  `;
+
+  const [login, { loading, error }] = useMutation(LOGIN_MUTATION, {
+    onCompleted: (data) => {
+      localStorage.setItem(AUTH_TOKEN, login.token);
+      navigate("/dashboard");
+    },
+    onError: (error) => {
+      console.error("ERROR: " + error);
+    },
+  });
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      console.log(formState);
+      await login({
+        variables: {
+          email: formState.email,
+          password: formState.password,
+        },
+      });
+    } catch (error) {
+      console.error("Caught error: " + error);
+    }
+  };
+
   return (
     <div>
       <Navbar />
@@ -24,13 +68,20 @@ function Login() {
                 <div className="mb-10">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
-                    htmlFor="username"
+                    htmlFor="email"
                   >
                     Email
                   </label>
                   <input
+                    value={formState.email}
+                    onChange={(e) =>
+                      setFormState({
+                        ...formState,
+                        email: e.target.value,
+                      })
+                    }
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="username"
+                    id="email"
                     type="text"
                   />
                 </div>
@@ -42,12 +93,19 @@ function Login() {
                     Password
                   </label>
                   <input
+                    value={formState.password}
+                    onChange={(e) =>
+                      setFormState({
+                        ...formState,
+                        password: e.target.value,
+                      })
+                    }
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     id="password"
                     type="password"
                   />
                 </div>
-                <div className="mb-10">
+                {/* <div className="mb-10">
                   <label
                     className="block text-gray-700 text-sm font-bold mb-2"
                     htmlFor="badgeNumber"
@@ -55,18 +113,26 @@ function Login() {
                     Badge number
                   </label>
                   <input
+                    value={formState.badge_number}
+                    onChange={(e) =>
+                      setFormState({
+                        ...formState,
+                        email: e.target.value,
+                      })
+                    }
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     id="badgeNumber"
                     type="text"
                   />
-                </div>
+                </div> */}
                 <div className="mb-10 w-100">
                   <div className="flex justify-center w-full">
-                    <Link to="/dashboard" className="width-100">
-                      <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-3 rounded w-full">
-                        Log in
-                      </button>
-                    </Link>
+                    <div
+                      onClick={handleFormSubmit}
+                      className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-3 rounded w-full"
+                    >
+                      Log in
+                    </div>
                   </div>
                 </div>
               </form>
