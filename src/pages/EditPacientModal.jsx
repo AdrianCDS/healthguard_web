@@ -53,7 +53,7 @@ function EditPacientModal({ isOpen, onClose, initialData }) {
 
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block mb-1">Nume</label>
+            <label className="block mb-1">Name</label>
             <input
               type="text"
               name="name"
@@ -63,7 +63,7 @@ function EditPacientModal({ isOpen, onClose, initialData }) {
             />
           </div>
           <div className="mb-4">
-            <label className="block mb-1">Varsta</label>
+            <label className="block mb-1">Age</label>
             <input
               type="text"
               name="age"
@@ -73,7 +73,7 @@ function EditPacientModal({ isOpen, onClose, initialData }) {
             />
           </div>
           <div className="mb-4">
-            <label className="block mb-1">Firma</label>
+            <label className="block mb-1">Work place</label>
             <input
               type="text"
               name="work_place"
@@ -83,7 +83,7 @@ function EditPacientModal({ isOpen, onClose, initialData }) {
             />
           </div>
           <div className="mb-4">
-            <label className="block mb-1">Tara</label>
+            <label className="block mb-1">Country</label>
             <input
               type="text"
               name="country"
@@ -93,7 +93,7 @@ function EditPacientModal({ isOpen, onClose, initialData }) {
             />
           </div>
           <div className="mb-4">
-            <label className="block mb-1">Oras</label>
+            <label className="block mb-1">City</label>
             <input
               type="text"
               name="city"
@@ -103,7 +103,7 @@ function EditPacientModal({ isOpen, onClose, initialData }) {
             />
           </div>
           <div className="mb-4">
-            <label className="block mb-1">Strada</label>
+            <label className="block mb-1">Street</label>
             <input
               type="text"
               name="street"
@@ -113,7 +113,7 @@ function EditPacientModal({ isOpen, onClose, initialData }) {
             />
           </div>
           <div className="mb-4">
-            <label className="block mb-1">Numar</label>
+            <label className="block mb-1">Street Number</label>
             <input
               type="text"
               name="street_number"
@@ -133,7 +133,7 @@ function EditPacientModal({ isOpen, onClose, initialData }) {
             />
           </div>
           <div className="mb-4">
-            <label className="block mb-1">Telefon</label>
+            <label className="block mb-1">Phone number</label>
             <input
               type="text"
               name="phone_number"
@@ -143,7 +143,7 @@ function EditPacientModal({ isOpen, onClose, initialData }) {
             />
           </div>
           <div className="mb-4">
-            <label className="block mb-1">Profesie</label>
+            <label className="block mb-1">Occupation</label>
             <input
               type="text"
               name="occupation"
@@ -153,7 +153,7 @@ function EditPacientModal({ isOpen, onClose, initialData }) {
             />
           </div>
           <div className="mb-4">
-            <label className="block mb-1">Alergii</label>
+            <label className="block mb-1">Alergies</label>
             <input
               type="text"
               name="allergies"
@@ -162,21 +162,19 @@ function EditPacientModal({ isOpen, onClose, initialData }) {
               className={inputClassName}
             />
           </div>
-          {/* Adaugă restul câmpurilor aici, la fel cum am adăugat cele de mai sus */}
-
           <div className="flex justify-between mt-8">
-            <button
-              type="submit"
-              className="btn-primary w-1/6 rounded-full h-1/2 bg-blue-100 hover:bg-blue-700 text-blue-800 hover:text-white font-bold border-2 border-blue-500 rounded"
-            >
-              Salvează
-            </button>
             <button
               type="button"
               onClick={onClose}
               className="btn-secondary w-1/6 rounded-full h-1/2 bg-blue-100 hover:bg-blue-700 text-blue-800 hover:text-white font-bold border-2 border-blue-500 rounded"
             >
-              Anulează
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="btn-primary w-1/6 rounded-full h-1/2 bg-blue-100 hover:bg-blue-700 text-blue-800 hover:text-white font-bold border-2 border-blue-500 rounded"
+            >
+              Save
             </button>
           </div>
         </form>

@@ -45,17 +45,15 @@ function PacientDetails() {
   const buttonLabels = {
     Edit: "Edit pacient",
     Delete: "Delete pacient",
-    //Alerte: "Adaugare Alerte",
     Recommandation: "Add recommandation",
   };
 
   const handleButtonClick = (buttonName) => {
-    console.log(`Butonul ${buttonName} a fost apăsat.`);
     setActiveButton(buttonName);
-    if (buttonName === "Editare") {
+    if (buttonName === "Edit") {
       setEditareModalOpen(true);
     }
-    if (buttonName === "Stergere") {
+    if (buttonName === "Delete") {
       setStergereModalOpen(true);
     }
   };
@@ -65,7 +63,7 @@ function PacientDetails() {
   };
 
   const handleConfirmStergere = () => {
-    console.log("Pacientul a fost șters.");
+    console.log("Pacient was deleted");
     setStergereModalOpen(false);
   };
 

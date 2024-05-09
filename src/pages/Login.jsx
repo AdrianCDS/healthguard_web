@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import Menu from "./Menu";
+import Navbar from "./Navbar";
 import "./../assets/general-styles.css";
 
 function Login() {
   return (
     <div>
-      <Menu />
+      <Navbar />
       <div
         className="bg-cover h-screen flex items-center justify-center bg-white"
         style={{

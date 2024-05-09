@@ -1,12 +1,12 @@
 import React from "react";
 import calendar from "../assets/calendar.png";
 import heart from "../assets/heart.png";
-import Menu from "./Menu";
+import Navbar from "./Navbar";
 
 function StartPage() {
   return (
     <div>
-      <Menu />
+      <Navbar />
 
       <div
         className=""

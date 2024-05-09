@@ -1,6 +1,6 @@
 import React from "react";
 
-function Menu() {
+function Navbar() {
   return (
     <div className="bg-blue-500 text-white py-2 px-4 fixed top-0 left-0 w-full">
       <div>
@@ -10,4 +10,4 @@ function Menu() {
   );
 }
 
-export default Menu;
+export default Navbar;

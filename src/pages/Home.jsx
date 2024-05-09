@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import Menu from "./Menu";
+import Navbar from "./Navbar";
 
 function Home() {
   return (
     <div>
-      <Menu />
+      <Navbar />
 
       <div
         className="bg-cover h-screen flex items-center justify-center bg-white"
