@@ -22,12 +22,16 @@ function Login() {
     }
   `;
 
-  const [login, { loading, error }] = useMutation(LOGIN_MUTATION, {
-    onCompleted: (data) => {
-      localStorage.setItem(AUTH_TOKEN, login.token);
+  const [login] = useMutation(LOGIN_MUTATION, {
+    variables: {
+      email: formState.email,
+      password: formState.password,
+    },
+    onCompleted: ({ loginUser }) => {
+      localStorage.setItem(AUTH_TOKEN, loginUser.token);
       navigate("/dashboard");
     },
-    onError: (error) => {
+    onError: ({ error }) => {
       let formError = document.getElementById("form-error");
       formError.innerHTML = "Invalid credentials";
       console.error("ERROR: " + error);
@@ -37,13 +41,7 @@ function Login() {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(formState);
-      await login({
-        variables: {
-          email: formState.email,
-          password: formState.password,
-        },
-      });
+      await login();
     } catch (error) {
       console.error("Caught error: " + error);
     }

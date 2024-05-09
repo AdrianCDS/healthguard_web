@@ -10,6 +10,7 @@ import { AUTH_TOKEN } from "../constants";
 
 export default function Dashboard() {
   const authToken = localStorage.getItem(AUTH_TOKEN);
+  console.log(authToken);
 
   const buttonLabels = {
     Details: "Account details",
@@ -19,8 +20,6 @@ export default function Dashboard() {
   };
 
   const handleButtonClick = (buttonName) => {
-    console.log(`Butonul ${buttonName} a fost apăsat.`);
-    // Returnează un Link către ruta corespunzătoare
     switch (buttonName) {
       case "Lista":
         return <Link to="/ListPacients" />;
