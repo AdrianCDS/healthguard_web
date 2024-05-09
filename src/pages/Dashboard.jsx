@@ -4,6 +4,8 @@ import PatientDetailsSummaryCard from "./PatientDetailsSummaryCard";
 import AlertCard from "./AlertCard";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { Line } from "react-chartjs-2";
+import Chart from "chart.js/auto";
 import { AUTH_TOKEN } from "../constants";
 
 export default function Dashboard() {
@@ -112,8 +114,8 @@ export default function Dashboard() {
                   date="12 Dec 2023"
                 />
                 <PatientDetailsSummaryCard
-                  first_name="Jeremiah"
-                  last_name="Smith"
+                  first_name="Jamila"
+                  last_name="Cuisine"
                   date="12 Dec 2023"
                 />
                 <PatientDetailsSummaryCard
@@ -143,8 +145,8 @@ export default function Dashboard() {
           </div>
         </div>
         <div className="h-full pb-32 flex justify-center gap-3">
-          <div className="border border-blue-400 border-4  rounded-lg text-center bg-blue-400 h-auto h-full p-4">
-            <p className="text-white text-2xl font-bold pb-2">
+          <div className="border border-blue-400 border-4  overflow-y-auto rounded-lg text-center bg-blue-400 h-full p-4">
+            <p className="text-white text-2xl  font-bold pb-2">
               Triggered alerts
             </p>
             <div className="flex flex-col space-y-4 justify-around items-center text-white w-full">
@@ -154,6 +156,10 @@ export default function Dashboard() {
                 bpm="90"
                 temperature="37.5"
                 humidity="50"
+                ecgData={[
+                  0.1, 0.3, 0.5, 0.4, 0.2, 0.3, 0.6, 0.8, 0.7, 0.4, 0.6, 0.5,
+                  0.5, 0.3, 0.1,
+                ]}
               />
               <AlertCard
                 first_name="Alex"
@@ -161,6 +167,10 @@ export default function Dashboard() {
                 bpm="90"
                 temperature="37.5"
                 humidity="50"
+                ecgData={[
+                  0.1, 0.3, 0.5, 0.4, 0.2, 0.3, 0.6, 0.8, 0.7, 0.4, 0.6, 0.5,
+                  0.5, 0.3, 0.1,
+                ]}
               />
               <AlertCard
                 first_name="Raluca"
@@ -168,6 +178,10 @@ export default function Dashboard() {
                 bpm="90"
                 temperature="37.5"
                 humidity="50"
+                ecgData={[
+                  0.1, 0.3, 0.5, 0.4, 0.2, 0.3, 0.6, 0.8, 0.7, 0.4, 0.6, 0.5,
+                  0.5, 0.3, 0.1,
+                ]}
               />
               <AlertCard
                 first_name="Alex"
@@ -175,6 +189,10 @@ export default function Dashboard() {
                 bpm="90"
                 temperature="37.5"
                 humidity="50"
+                ecgData={[
+                  0.1, 0.3, 0.5, 0.4, 0.2, 0.3, 0.6, 0.8, 0.7, 0.4, 0.6, 0.5,
+                  0.5, 0.3, 0.1,
+                ]}
               />
               <AlertCard
                 first_name="Raluca"
@@ -182,6 +200,10 @@ export default function Dashboard() {
                 bpm="90"
                 temperature="37.5"
                 humidity="50"
+                ecgData={[
+                  0.1, 0.3, 0.5, 0.4, 0.2, 0.3, 0.6, 0.8, 0.7, 0.4, 0.6, 0.5,
+                  0.5, 0.3, 0.1,
+                ]}
               />
             </div>
           </div>
