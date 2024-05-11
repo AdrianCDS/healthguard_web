@@ -3,7 +3,7 @@ import DeletePacientModal from "./DeletePacientModal";
 import { Link } from "react-router-dom";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
 
-function PacientDetailsCard({ name, cnp, phone_number, email }) {
+function PacientDetailsCard({ id, name, cnp, phone_number, email }) {
   const [showModal, setShowModal] = useState(false);
 
   const handleDeleteClick = () => {
@@ -15,7 +15,6 @@ function PacientDetailsCard({ name, cnp, phone_number, email }) {
   };
 
   const handleConfirmDelete = () => {
-    // Aici puteți adăuga logica pentru ștergerea efectivă a pacientului
     setShowModal(false);
   };
 
@@ -30,7 +29,7 @@ function PacientDetailsCard({ name, cnp, phone_number, email }) {
       <p>{cnp}</p>
       <div className="relative w-1/3 h-10 flex flex-row items-center gap-4">
         <Link
-          to="/pacients/details/id"
+          to={`/pacients/details/${id}`}
           className="w-full flex items-center justify-center h-full hover:bg-blue-700 hover:text-white border border-solid border-blue-500 rounded-lg bg-blue-300"
         >
           <p>Details</p>

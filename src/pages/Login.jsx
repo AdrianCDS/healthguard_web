@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, setError } from "react";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { AUTH_TOKEN } from "../constants";
+import * as Queries from "../queries";
 
 function Login() {
   const [formState, setFormState] = useState({
@@ -14,15 +15,7 @@ function Login() {
 
   const navigate = useNavigate();
 
-  const LOGIN_MUTATION = gql`
-    mutation LoginMutation($email: String!, $password: String!) {
-      loginUser(input: { email: $email, password: $password }) {
-        token
-      }
-    }
-  `;
-
-  const [login] = useMutation(LOGIN_MUTATION, {
+  const [login] = useMutation(Queries.LOGIN_MUTATION, {
     variables: {
       email: formState.email,
       password: formState.password,
@@ -57,7 +50,7 @@ function Login() {
           backgroundSize: "cover",
         }}
       >
-        <div className="bg-cover h-full pb-64 flex items-center justify-center bg-white login-bg">
+        <div className="bg-cover h-full pb-64 flex items-center justify-center login-bg">
           <div className="p-8 rounded-lg text-blue-800 text-left mx-auto">
             <div style={{ width: "488px", height: "283px" }}>
               <h1 className="text-3xl font-bold mb-10 text-center">
@@ -130,7 +123,7 @@ function Login() {
                   <div className="flex justify-center w-full">
                     <div
                       onClick={handleFormSubmit}
-                      className="bg-blue-500 hover:bg-blue-600 text-white text-center font-bold py-2 px-3 rounded w-full"
+                      className="hover:cursor-pointer bg-blue-500 hover:bg-blue-600 text-white text-center font-bold py-2 px-3 rounded w-full"
                     >
                       Log in
                     </div>

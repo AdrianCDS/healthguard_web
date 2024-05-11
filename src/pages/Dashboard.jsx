@@ -7,10 +7,36 @@ import { useState } from "react";
 import { Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 import { AUTH_TOKEN } from "../constants";
+import { useQuery } from "@apollo/client";
+import * as Queries from "../queries";
 
 export default function Dashboard() {
   const authToken = localStorage.getItem(AUTH_TOKEN);
-  console.log(authToken);
+
+  const userQueryResult = useQuery(Queries.GET_USER_BY_TOKEN_QUERY, {
+    variables: { token: authToken },
+  });
+
+  const medic = userQueryResult.data?.getUserByToken;
+
+  const pacientsDataQueryResult = useQuery(
+    Queries.GET_MEDIC_PACIENTS_DATA_QUERY,
+    {
+      variables: { id: medic?.id },
+    }
+  );
+
+  const pacients = pacientsDataQueryResult.data?.getMedicPacients;
+
+  let mostRecentPatientEmail = null;
+
+  if (pacients) {
+    const [mostRecentPatient] = [...pacients].sort(
+      (a, b) => new Date(b.insertedAt) - new Date(a.insertedAt)
+    );
+
+    mostRecentPatientEmail = mostRecentPatient.email;
+  }
 
   const buttonLabels = {
     Details: "Account details",
@@ -21,11 +47,11 @@ export default function Dashboard() {
 
   const handleButtonClick = (buttonName) => {
     switch (buttonName) {
-      case "Lista":
-        return <Link to="/ListPacients" />;
+      case "List":
+        return <Link to="/pacients" />;
 
-      case "Detalii":
-        return <Link to="/detaliicont" />;
+      case "Details":
+        return <Link to="/account" />;
 
       default:
         return null;
@@ -39,7 +65,7 @@ export default function Dashboard() {
         backgroundSize: "cover",
       }}
     >
-      {authToken ? (
+      {authToken && medic && pacients && mostRecentPatientEmail ? (
         <div className="w-full bg-cover h-screen flex justify-between">
           <div className="w-1/4 p-4 flex flex-col space-y-4 h-full bg-blue-300">
             <h1 className="text-5xl text-center font-bold pb-6 pt-8 text-blue-700">
@@ -52,9 +78,12 @@ export default function Dashboard() {
             />
             <img src="src/assets/medics_artwork.svg" className="pt-36" />
           </div>
-          <div className="w-3/4 flex px-32 pt-32 justify-between items-start">
+          <div className="w-3/4 flex px-32 pt-24 justify-between items-start">
             <div className="flex flex-col space-y-4 h-full pb-32">
-              <div className="flex justify-between items-center gap-5">
+              <h1 className="font-semibold text-xl">
+                Welcome back, {medic.firstName}!
+              </h1>
+              <div className="flex justify-between items-center gap-5 mr-4">
                 <div className="flex flex-col bg-white items-end border border-blue-300 border-4 rounded-lg text-center p-4">
                   <img
                     src="src/assets/pacient_wheelchair_artwork.svg"
@@ -63,7 +92,9 @@ export default function Dashboard() {
                   <p className="font-semibold text-gray-700 text-md">
                     Total pacients
                   </p>
-                  <p className="text-black font-bold text-lg italic">6</p>
+                  <p className="text-black font-bold text-lg italic">
+                    {medic.medicProfile.pacients.length}
+                  </p>
                 </div>
                 <div className="flex flex-col bg-white items-end border border-blue-300 border-4 rounded-lg text-center p-4">
                   <img
@@ -74,7 +105,7 @@ export default function Dashboard() {
                     Last added pacient
                   </p>
                   <p className="text-black font-bold text-lg italic">
-                    user@gmail.com
+                    {mostRecentPatientEmail}
                   </p>
                 </div>
                 <div className="flex flex-col bg-white items-end border border-blue-300 border-4 rounded-lg text-center p-4">
@@ -85,9 +116,7 @@ export default function Dashboard() {
                   <p className="font-semibold text-gray-700 text-md">
                     Next appointment
                   </p>
-                  <p className="text-black font-bold text-lg italic">
-                    12 Dec 2023
-                  </p>
+                  <p className="text-black font-bold text-lg italic">N/A</p>
                 </div>
               </div>
               <div className="h-full flex justify-between gap-4">
@@ -96,43 +125,30 @@ export default function Dashboard() {
                     Last added pacients
                   </p>
                   <div className="flex flex-col items-center space-y-4 text-white">
-                    <PatientDetailsSummaryCard
-                      first_name="Popescu"
-                      last_name="Ion"
-                      date="12 Dec 2023"
-                    />
-                    <PatientDetailsSummaryCard
-                      first_name="Jamila"
-                      last_name="Cuisine"
-                      date="12 Dec 2023"
-                    />
-                    <PatientDetailsSummaryCard
-                      first_name="Jamila"
-                      last_name="Cuisine"
-                      date="12 Dec 2023"
-                    />
-                    <PatientDetailsSummaryCard
-                      first_name="Jane"
-                      last_name="Roberts"
-                      date="12 Dec 2023"
-                    />
+                    {[...pacients].reverse().map((pacient, index) => (
+                      <PatientDetailsSummaryCard
+                        key={index}
+                        first_name={pacient.firstName}
+                        last_name={pacient.lastName}
+                        date={pacient.insertedAt}
+                      />
+                    ))}
                   </div>
                 </div>
-                <div className="border border-blue-400 border-4  rounded-lg text-center bg-blue-400 p-4">
+                <div className="border border-blue-400 border-4  rounded-lg text-center bg-blue-400 p-4 mr-4">
                   <p className="text-white pb-2 text-2xl font-bold ">
                     Future appointments
                   </p>
                   <div className="flex flex-col justify-around items-center gap-4 text-white">
-                    <PatientDetailsSummaryCard
-                      first_name="Popescu"
-                      last_name="Ion"
-                      date="12 Dec 2023"
-                    />
-                    <PatientDetailsSummaryCard
-                      first_name="Jamila"
-                      last_name="Cuisine"
-                      date="12 Dec 2023"
-                    />
+                    {/* {pacients.map((pacient, index) => (
+                      <PatientDetailsSummaryCard
+                        key={index}
+                        first_name={pacient.firstName}
+                        last_name={pacient.lastName}
+                        date={pacient.insertedAt}
+                      />
+                    ))} */}
+                    N/A
                   </div>
                 </div>
               </div>
@@ -143,7 +159,7 @@ export default function Dashboard() {
                   Triggered alerts
                 </p>
                 <div className="flex flex-col space-y-4 justify-around items-center text-white w-full">
-                  <AlertCard
+                  {/* <AlertCard
                     first_name="Gabi"
                     last_name="Ionel"
                     bpm="90"
@@ -153,51 +169,8 @@ export default function Dashboard() {
                       0.1, 0.3, 0.5, 0.4, 0.2, 0.3, 0.6, 0.8, 0.7, 0.4, 0.6,
                       0.5, 0.5, 0.3, 0.1,
                     ]}
-                  />
-                  <AlertCard
-                    first_name="Alex"
-                    last_name="Popescu"
-                    bpm="90"
-                    temperature="37.5"
-                    humidity="50"
-                    ecgData={[
-                      0.1, 0.3, 0.5, 0.4, 0.2, 0.3, 0.6, 0.8, 0.7, 0.4, 0.6,
-                      0.5, 0.5, 0.3, 0.1,
-                    ]}
-                  />
-                  <AlertCard
-                    first_name="Raluca"
-                    last_name="Ioan"
-                    bpm="90"
-                    temperature="37.5"
-                    humidity="50"
-                    ecgData={[
-                      0.1, 0.3, 0.5, 0.4, 0.2, 0.3, 0.6, 0.8, 0.7, 0.4, 0.6,
-                      0.5, 0.5, 0.3, 0.1,
-                    ]}
-                  />
-                  <AlertCard
-                    first_name="Alex"
-                    last_name="Popescu"
-                    bpm="90"
-                    temperature="37.5"
-                    humidity="50"
-                    ecgData={[
-                      0.1, 0.3, 0.5, 0.4, 0.2, 0.3, 0.6, 0.8, 0.7, 0.4, 0.6,
-                      0.5, 0.5, 0.3, 0.1,
-                    ]}
-                  />
-                  <AlertCard
-                    first_name="Raluca"
-                    last_name="Ioan"
-                    bpm="90"
-                    temperature="37.5"
-                    humidity="50"
-                    ecgData={[
-                      0.1, 0.3, 0.5, 0.4, 0.2, 0.3, 0.6, 0.8, 0.7, 0.4, 0.6,
-                      0.5, 0.5, 0.3, 0.1,
-                    ]}
-                  />
+                  /> */}
+                  N/A
                 </div>
               </div>
             </div>
