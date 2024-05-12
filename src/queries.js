@@ -196,3 +196,40 @@ export const REGISTER_PACIENT_MUTATION = gql`
     }
   }
 `;
+
+export const ADD_RECOMMANDATION_TO_PACIENT_MUTATION = gql`
+  mutation AddRecommandationToPacientMutation(
+    $id: ID!
+    $recommandation: String!
+    $startDate: String!
+    $daysDuration: Int!
+    $note: String!
+  ) {
+    addRecommandation(
+      input: {
+        id: $id
+        recommandation: $recommandation
+        startDate: $startDate
+        note: $note
+        daysDuration: $daysDuration
+      }
+    ) {
+      id
+      firstName
+      lastName
+      email
+      pacientProfile {
+        id
+        recommandations {
+          recommandation
+          activityType {
+            type
+          }
+          startDate
+          daysDuration
+          note
+        }
+      }
+    }
+  }
+`;
