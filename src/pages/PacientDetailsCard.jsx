@@ -2,8 +2,10 @@ import { useState } from "react";
 import DeletePacientModal from "./DeletePacientModal";
 import { Link } from "react-router-dom";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
+import { gql, useMutation, useQuery } from "@apollo/client";
+import * as Queries from "../queries";
 
-function PacientDetailsCard({ id, name, cnp, phone_number, email }) {
+function PacientDetailsCard({ id, name, cnp, phone_number, email, onDelete }) {
   const [showModal, setShowModal] = useState(false);
 
   const handleDeleteClick = () => {
@@ -15,7 +17,9 @@ function PacientDetailsCard({ id, name, cnp, phone_number, email }) {
   };
 
   const handleConfirmDelete = () => {
+    onDelete();
     setShowModal(false);
+    // handleDeleteUser().then(() => setShowModal(false));
   };
 
   return (

@@ -117,3 +117,82 @@ export const LOGOUT_MUTATION = gql`
     }
   }
 `;
+
+export const DELETE_PACIENT_USER_MUTATION = gql`
+  mutation DeletePacientUserMutation($id: ID!) {
+    deletePacientUser(pacientId: $id)
+  }
+`;
+
+export const REGISTER_PACIENT_MUTATION = gql`
+  mutation RegisterPacientMutation(
+    $email: String!
+    $password: String!
+    $firstName: String!
+    $lastName: String!
+    $phoneNumber: String!
+    $cnp: String!
+    $age: Int!
+    $workPlace: String!
+    $profession: String!
+    $country: String!
+    $city: String!
+    $street: String!
+    $streetNumber: Int!
+    $medicEmail: String!
+  ) {
+    registerPacient(
+      input: {
+        email: $email
+        password: $password
+        firstName: $firstName
+        lastName: $lastName
+        phoneNumber: $phoneNumber
+        pacientProfile: {
+          cnp: $cnp
+          age: $age
+          workPlace: $workPlace
+          profession: $profession
+          address: {
+            country: $country
+            city: $city
+            street: $street
+            streetNumber: $streetNumber
+          }
+        }
+        medicEmail: $medicEmail
+      }
+    ) {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      medicProfile {
+        id
+        badgeNumber
+        pacients {
+          id
+          cnp
+          age
+        }
+      }
+      pacientProfile {
+        id
+        cnp
+        age
+        state
+        address {
+          country
+          city
+          street
+          streetNumber
+        }
+        medicProfile {
+          id
+          badgeNumber
+        }
+      }
+    }
+  }
+`;
