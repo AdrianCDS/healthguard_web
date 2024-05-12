@@ -1,15 +1,16 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import EditPacientModal from "./EditPacientModal";
 import DeletePacientModal from "./DeletePacientModal";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import * as Queries from "../queries";
 
 function PacientDetails() {
   const [activeButton, setActiveButton] = useState(null);
-  const [editareModalOpen, setEditareModalOpen] = useState(false);
-  const [stergereModalOpen, setStergereModalOpen] = useState(false);
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   let { pacientId } = useParams();
 
@@ -22,30 +23,86 @@ function PacientDetails() {
   const buttonLabels = {
     Edit: "Edit pacient",
     Delete: "Delete pacient",
-    Recommandation: "Add recommandation",
+    Recommandation: "Recommandations",
+    Alerts: "Alerts",
+  };
+
+  const [deleteUser] = useMutation(Queries.DELETE_PACIENT_USER_MUTATION, {
+    onCompleted: () => {
+      console.log("Successfully deleted!");
+      navigate("/pacients");
+    },
+    onError: ({ error }) => {
+      console.error("ERROR: " + error);
+    },
+  });
+
+  const deletePacientUser = async (pacientId) => {
+    try {
+      await deleteUser({ variables: { id: pacientId } });
+    } catch (error) {
+      console.error("Error deleting pacient:", error);
+    }
+  };
+
+  const [updatePacientMutation] = useMutation(
+    Queries.UPDATE_PACIENT_USER_MUTATION,
+    {
+      onCompleted: () => {
+        console.log("Successfully updated user!");
+      },
+      onError: (error) => {
+        console.error("ERROR: " + error);
+      },
+    }
+  );
+
+  const updatePacient = async (pacientData) => {
+    console.log(pacientData);
+    try {
+      await updatePacientMutation({
+        variables: {
+          id: pacientData.id,
+          email: pacientData.email,
+          firstName: pacientData.firstName,
+          lastName: pacientData.lastName,
+          phoneNumber: pacientData.phoneNumber,
+          age: pacientData.age,
+          workPlace: pacientData.workPlace,
+          profession: pacientData.profession,
+          country: pacientData.country,
+          city: pacientData.city,
+          street: pacientData.street,
+          streetNumber: pacientData.streetNumber,
+        },
+      });
+      location.reload();
+    } catch (error) {
+      console.log("Error updating pacient: " + error);
+    }
   };
 
   const handleButtonClick = (buttonName) => {
     setActiveButton(buttonName);
     if (buttonName === "Edit") {
-      setEditareModalOpen(true);
+      setEditModalOpen(true);
     }
     if (buttonName === "Delete") {
-      setStergereModalOpen(true);
+      setDeleteModalOpen(true);
     }
   };
 
-  const closeStergereModal = () => {
-    setStergereModalOpen(false);
+  const closeDeleteModal = () => {
+    setDeleteModalOpen(false);
   };
 
-  const handleConfirmStergere = () => {
-    console.log("Pacient was deleted");
-    setStergereModalOpen(false);
+  const handleConfirmDelete = () => {
+    deletePacientUser(pacient.pacientProfile.id);
+    setDeleteModalOpen(false);
   };
 
-  const closeEditareModal = () => {
-    setEditareModalOpen(false);
+  const closeEditModal = () => {
+    setEditModalOpen(false);
   };
 
   return (
@@ -76,6 +133,8 @@ function PacientDetails() {
                       to={
                         buttonName === "Recommandation"
                           ? `/pacients/recommandations/${pacientId}`
+                          : buttonName === "Alerts"
+                          ? `/pacients/alerts/${pacientId}`
                           : ""
                       }
                       className={`w-3/4 h-16 p-3 rounded-lg mb-4 focus:outline-none text-lg text-center flex items-center justify-center ${
@@ -165,56 +224,6 @@ function PacientDetails() {
               </div>
 
               <div>
-                <p className="text-lg font-semibold pt-2">Alerts</p>
-                <div className="flex pt-1 pb-4">
-                  <div className="w-1/2">
-                    <div className="flex space-x-2 items-center">
-                      <p>BPM</p>
-                      <p className="text-gray-600">N/A</p>
-                    </div>
-                    <p className="text-gray-600">N/A</p>
-                  </div>
-                  <div className="w-1/2">
-                    <div className="flex space-x-2 items-center">
-                      <p>ECG</p>
-                      <p className="text-gray-600">N/A</p>
-                    </div>
-                    <p className="text-gray-600">N/A</p>
-                  </div>
-                </div>
-                <div className="flex pt-1 pb-4">
-                  <div className="w-1/2">
-                    <div className="flex space-x-2 items-center">
-                      <p>Humidity</p>
-                      <p className="text-gray-600">N/A</p>
-                    </div>
-                    <p className="text-gray-600">N/A</p>
-                  </div>
-                  <div className="w-1/2">
-                    <div className="flex space-x-2 items-center">
-                      <p>Temperature</p>
-                      <p className="text-gray-600">N/A</p>
-                    </div>
-                    <p className="text-gray-600">N/A</p>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <p className="text-lg font-semibold pt-2">Recommandations</p>
-                <div className="flex pt-1 pb-4">
-                  <div className="w-1/2">
-                    <div className="flex space-x-2 items-center">
-                      <p>Bicycle</p>
-                      <p className="text-gray-600">N/A days</p>
-                    </div>
-                    <p className="text-gray-600 italic">N/A</p>
-                    <p className="text-gray-600">N/A</p>
-                  </div>
-                </div>
-              </div>
-
-              <div>
                 <p className="text-lg font-semibold pt-2">Allergies</p>
                 <div className="flex pt-1 pb-4">
                   <div className="w-1/2">
@@ -224,23 +233,24 @@ function PacientDetails() {
               </div>
             </div>
           </div>
+          <EditPacientModal
+            isOpen={editModalOpen}
+            onClose={closeEditModal}
+            onSave={(pacientData) => updatePacient(pacientData)}
+            initialPacientData={pacient}
+          />
+          {deleteModalOpen && (
+            <DeletePacientModal
+              onCancel={closeDeleteModal}
+              onConfirm={handleConfirmDelete}
+            />
+          )}
         </div>
       ) : (
         <div className="flex items-center justify-center mx-auto">
           <h1 className="font-bold text-5xl text-center">Loading...</h1>
         </div>
       )}
-      {/* <EditPacientModal
-        isOpen={editareModalOpen}
-        onClose={closeEditareModal}
-        initialData={pacient}
-      />
-      {stergereModalOpen && (
-        <DeletePacientModal
-          onCancel={closeStergereModal}
-          onConfirm={handleConfirmStergere}
-        />
-      )} */}
     </div>
   );
 }

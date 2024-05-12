@@ -43,6 +43,8 @@ export const GET_USER_BY_PACIENT_ID_QUERY = gql`
           streetNumber
         }
         recommandations {
+          note
+          recommandation
           activityType {
             type
           }
@@ -228,6 +230,71 @@ export const ADD_RECOMMANDATION_TO_PACIENT_MUTATION = gql`
           startDate
           daysDuration
           note
+        }
+      }
+    }
+  }
+`;
+
+export const UPDATE_PACIENT_USER_MUTATION = gql`
+  mutation UpdatePacientUserMutation(
+    $id: ID!
+    $email: String!
+    $firstName: String!
+    $lastName: String!
+    $phoneNumber: String!
+    $age: Int!
+    $workPlace: String!
+    $profession: String!
+    $country: String!
+    $city: String!
+    $street: String!
+    $streetNumber: Int!
+  ) {
+    updatePacientUser(
+      input: {
+        pacientId: $id
+        email: $email
+        firstName: $firstName
+        lastName: $lastName
+        phoneNumber: $phoneNumber
+        age: $age
+        workPlace: $workPlace
+        profession: $profession
+        country: $country
+        city: $city
+        street: $street
+        streetNumber: $streetNumber
+      }
+    ) {
+      id
+      email
+      firstName
+      lastName
+      phoneNumber
+      medicProfile {
+        id
+        badgeNumber
+        pacients {
+          id
+          cnp
+          age
+        }
+      }
+      pacientProfile {
+        id
+        cnp
+        age
+        state
+        medicProfile {
+          id
+          badgeNumber
+        }
+        address {
+          country
+          city
+          street
+          streetNumber
         }
       }
     }

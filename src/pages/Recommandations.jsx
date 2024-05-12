@@ -20,10 +20,10 @@ const DisplayRecommandations = ({ pacient }) => {
             key={index}
             className=" h-min flex justify-between p-4 border border-solid border-blue-500 rounded-lg bg-blue-100 overflow-hidden"
           >
-            <h1>{recommandation.recommandation}</h1>
-            <p className="w-1/8">Days: {recommandation.daysDuration}</p>
-            <p className="w-2/4 pl-4">Notes: {recommandation.note}</p>
-            <p className="w-1/4">Start Date: {recommandation.startDate}</p>
+            <h1 className="w-[40%]">{recommandation.recommandation}</h1>
+            <p className="w-[10%]">Days: {recommandation.daysDuration}</p>
+            <p className="w-[30%]">Notes: {recommandation.note}</p>
+            <p className="w-[20%]">Start Date: {recommandation.startDate}</p>
           </div>
         ))}
       </div>
