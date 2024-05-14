@@ -1,51 +1,102 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PacientDetailsCard from "./PacientDetailsCard";
 import AddPacientModal from "./AddPacientModal";
+import * as Queries from "../queries";
+import { useQuery, useMutation } from "@apollo/client";
+import { AUTH_TOKEN } from "../constants";
 
 function ListPacients() {
+  const authToken = localStorage.getItem(AUTH_TOKEN);
   const [ascendingOrder, setAscendingOrder] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
+  const [pacients, setPacients] = useState([]);
 
-  // Funcție pentru gestionarea evenimentului de click pe butonul de filtru
+  const userQueryResult = useQuery(Queries.GET_USER_BY_TOKEN_QUERY, {
+    variables: { token: authToken },
+  });
+
+  const medic = userQueryResult.data?.getUserByToken;
+
   const handleFilterClick = () => {
-    // Inversează starea de sortare la fiecare clic pe buton
     setAscendingOrder(!ascendingOrder);
   };
   const handleOpenModal = () => {
-    setModalOpen(true); // Deschide modalul când este apelată această funcție
+    setModalOpen(true);
   };
 
   const handleCloseModal = () => {
-    setModalOpen(false); // Închide modalul când este apelată această funcție
+    setModalOpen(false);
   };
 
-  const handleAddPacient = (pacientNou) => {
-    // Implementează adăugarea efectivă a pacientului în lista ta de pacienți
-    console.log("Pacient nou:", pacientNou);
+  const [addPacient] = useMutation(Queries.REGISTER_PACIENT_MUTATION, {
+    onCompleted: ({ registerPacient }) => {
+      console.log("Successfully added pacient!", registerPacient);
+      location.reload();
+    },
+    onError: ({ error }) => {
+      console.error("ERROR: " + error);
+    },
+  });
+
+  const handleAddPacient = async (data) => {
+    try {
+      await addPacient({
+        variables: {
+          email: data.email,
+          password: "Parola1234!@#",
+          firstName: data.firstName,
+          lastName: data.lastName,
+          phoneNumber: data.phoneNumber,
+          cnp: data.pacientProfile.cnp,
+          age: parseInt(data.pacientProfile.age),
+          workPlace: data.pacientProfile.workPlace,
+          profession: data.pacientProfile.profession,
+          country: data.pacientProfile.address.country,
+          city: data.pacientProfile.address.city,
+          street: data.pacientProfile.address.street,
+          streetNumber: parseInt(data.pacientProfile.address.streetNumber),
+          medicEmail: "john.doe@gmail.com",
+        },
+      });
+      setPacients(pacients);
+    } catch (error) {
+      console.error("Error adding pacient:", error);
+    }
   };
 
-  const pacients = [
-    {
-      name: "John Doe",
-      cnp: "1234567890123",
-      phone_number: "0712345678",
-      email: "john.doe@gmail.com",
+  const [deleteUser] = useMutation(Queries.DELETE_PACIENT_USER_MUTATION, {
+    onCompleted: () => {
+      console.log("Successfully deleted!");
     },
-    {
-      name: "Jane Smith",
-      cnp: "9876543210987",
-      phone_number: "0723456789",
-      email: "jane.smith@gmail.com",
+    onError: ({ error }) => {
+      console.error("ERROR: " + error);
     },
-    {
-      name: "Tom Jay",
-      cnp: "9876543210987",
-      phone_number: "0623456789",
-      email: "tom.jay@gmail.com",
-    },
-    // Alți pacienți...
-  ];
+  });
+
+  const deletePacientUser = async (pacientId) => {
+    try {
+      await deleteUser({ variables: { id: pacientId } });
+      setPacients(pacients.filter((pacient) => pacient.id !== pacientId));
+    } catch (error) {
+      console.error("Error deleting pacient:", error);
+    }
+  };
+
+  const {
+    data: pacientsData,
+    loading,
+    error,
+  } = useQuery(Queries.GET_MEDIC_PACIENTS_DATA_QUERY, {
+    variables: { id: medic?.id },
+  });
+
+  useEffect(() => {
+    if (!loading && !error) {
+      setPacients(pacientsData?.getMedicPacients || []);
+    }
+  }, [loading, error, pacientsData]);
+
   return (
     <div
       className="bg-auto h-screen flex items-center justify-center bg-white"
@@ -54,51 +105,73 @@ function ListPacients() {
         backgroundSize: "cover",
       }}
     >
-      <div className="h-screen w-full flex flex-col items-center ">
-        <div className="h-1/5 flex w-4/5 justify-between items-center">
-          <Link to="/dashboard">
-            <button className="bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 border-2 border-blue-500 rounded">
-              ⟵ Back
-            </button>
-          </Link>
+      {authToken && medic && pacients ? (
+        <div className="h-screen w-full flex flex-col items-center ">
+          <div className="h-1/5 flex w-4/5 justify-between items-center">
+            <Link to="/dashboard">
+              <button className="bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 border-2 border-blue-500 rounded">
+                ⟵ Back
+              </button>
+            </Link>
 
-          <button
-            className="bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 border-2 border-blue-500 rounded"
-            onClick={handleOpenModal}
-          >
-            Add pacient
-          </button>
-        </div>
-        <div className="flex flex-col space-y-4 w-full">
-          <div className="justify-between items-center px-56 py-4 flex">
-            <input
-              className="rounded-full bg-blue-100  border-2 border-blue-500  placeholder-blue-400 focus:text-blue-800 focus:border-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 p-4"
-              placeholder="Search for a pacient"
-            />
             <button
-              className="p-4 rounded-full bg-blue-700 hover:bg-blue-500 text-white font-bold  border-2 border-blue-500 rounded "
-              onClick={handleFilterClick}
+              className="bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 border-2 border-blue-500 rounded"
+              onClick={handleOpenModal}
             >
-              {ascendingOrder ? "↑ Ascending" : "↓ Descending"}
+              Add pacient
             </button>
           </div>
-          <div className="w-full flex flex-col gap-3 items-center">
-            {pacients.map((pacient, index) => (
-              <PacientDetailsCard
-                key={index}
-                name={pacient.name}
-                cnp={pacient.cnp}
-                phone_number={pacient.phone_number}
-                email={pacient.email}
+          <div className="flex flex-col space-y-4 w-full">
+            <div className="justify-between items-center px-56 py-4 flex">
+              <input
+                className="rounded-full bg-blue-100  border-2 border-blue-500  placeholder-blue-400 focus:text-blue-800 focus:border-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 p-4"
+                placeholder="Search for a pacient"
               />
-            ))}
+              <button
+                className="p-4 rounded-full bg-blue-700 hover:bg-blue-500 text-white font-bold  border-2 border-blue-500 rounded "
+                onClick={handleFilterClick}
+              >
+                {ascendingOrder ? "↑ Ascending" : "↓ Descending"}
+              </button>
+            </div>
+            <div className="w-full flex flex-col gap-3 items-center">
+              {ascendingOrder
+                ? [...pacients]
+                    .reverse()
+                    .map((pacient, index) => (
+                      <PacientDetailsCard
+                        key={index}
+                        id={pacient.id}
+                        name={`${pacient.firstName} ${pacient.lastName}`}
+                        cnp={pacient.cnp}
+                        phone_number={pacient.phoneNumber}
+                        email={pacient.email}
+                        onDelete={() => deletePacientUser(pacient.id)}
+                      />
+                    ))
+                : [...pacients].map((pacient, index) => (
+                    <PacientDetailsCard
+                      key={index}
+                      id={pacient.id}
+                      name={`${pacient.firstName} ${pacient.lastName}`}
+                      cnp={pacient.cnp}
+                      phone_number={pacient.phoneNumber}
+                      email={pacient.email}
+                      onDelete={() => deletePacientUser(pacient.id)}
+                    />
+                  ))}
+            </div>
           </div>
         </div>
-      </div>
-      {modalOpen && ( // Afiseaza modalul doar daca modalOpen este true
+      ) : (
+        <div className="flex items-center justify-center mx-auto">
+          <h1 className="font-bold text-5xl text-center">Loading...</h1>
+        </div>
+      )}
+      {modalOpen && (
         <AddPacientModal
-          onClose={handleCloseModal} // Pasam functia de inchidere a modalei ca prop pentru a putea fi apelata din interiorul modalei
-          onAddPacient={handleAddPacient} // Pasam functia pentru adaugarea pacientului ca prop
+          onClose={handleCloseModal}
+          onAddPacient={(data) => handleAddPacient(data)}
         />
       )}
     </div>

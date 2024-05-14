@@ -32,9 +32,12 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/pacients" element={<ListPacients />} />
         <Route path="/pacients/requests" element={<PacientRequests />} />
-        <Route path="/pacients/details/id" element={<PacientDetails />} />
         <Route
-          path="/pacients/recommandations/id"
+          path="/pacients/details/:pacientId"
+          element={<PacientDetails />}
+        />
+        <Route
+          path="/pacients/recommandations/:pacientId"
           element={<Recommandations />}
         />
         <Route path="/account" element={<Account />} />

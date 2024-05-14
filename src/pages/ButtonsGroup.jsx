@@ -7,11 +7,35 @@ import {
   ListBulletIcon,
 } from "@heroicons/react/24/solid";
 import { AUTH_TOKEN } from "../constants";
+import { gql, useMutation, useQuery } from "@apollo/client";
+import * as Queries from "../queries";
 
 function ButtonsGroup({ buttonLabels }) {
   const authToken = localStorage.getItem(AUTH_TOKEN);
+
   const [activeButton, setActiveButton] = useState(null);
   const navigate = useNavigate();
+
+  const [logout] = useMutation(Queries.LOGOUT_MUTATION, {
+    variables: {
+      token: authToken,
+    },
+    onCompleted: ({ logoutUser }) => {
+      localStorage.removeItem(AUTH_TOKEN);
+      navigate("/login");
+    },
+    onError: ({ error }) => {
+      console.error("ERROR: " + error);
+    },
+  });
+
+  const handleRemoveSessionToken = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      console.error("Caught error: " + error);
+    }
+  };
 
   const handleButtonClick = (buttonName) => {
     setActiveButton(buttonName);
@@ -20,8 +44,7 @@ function ButtonsGroup({ buttonLabels }) {
   const handleLogout = () => {
     const confirmation = window.confirm("Are you sure you want to logout?");
     if (confirmation) {
-      localStorage.removeItem(AUTH_TOKEN);
-      navigate("/login");
+      handleRemoveSessionToken();
     }
   };
 

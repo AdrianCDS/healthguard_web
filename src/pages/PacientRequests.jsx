@@ -5,21 +5,7 @@ import PacientRequestCard from "./PacientRequestCard";
 function PacientRequests() {
   const [ascendingOrder, setAscendingOrder] = useState(true);
 
-  const pacients = [
-    {
-      first_name: "Tom",
-      last_name: "John",
-      email: "tom@email.com",
-    },
-    {
-      first_name: "Ja",
-      last_name: "Jessie",
-      email: "jsica@email.com",
-    },
-  ];
-
   const handleFilterClick = () => {
-    // Inversează starea de sortare la fiecare clic pe buton
     setAscendingOrder(!ascendingOrder);
   };
 
@@ -53,14 +39,15 @@ function PacientRequests() {
             </button>
           </div>
           <div className="w-full flex flex-col gap-3 items-center">
-            {pacients.map((pacient, index) => (
+            {/* {pacients.map((pacient, index) => (
               <PacientRequestCard
                 key={index}
                 first_name={pacient.first_name}
                 last_name={pacient.last_name}
                 email={pacient.email}
               />
-            ))}
+            ))} */}
+            N/A
           </div>
         </div>
       </div>

@@ -15,11 +15,10 @@ function AddPacientModal({ onClose, onAddPacient }) {
   const [city, setCity] = useState("");
   const [street, setStreet] = useState("");
   const [street_number, setStreetNumber] = useState("");
-  const [alergies, setAlergies] = useState([]);
+  const [allergies, setAlergies] = useState([]);
   const optionsAlergies = [
     { value: "alergie1", label: "Alergie 1" },
     { value: "alergie2", label: "Alergie 2" },
-    // Adaugă alte opțiuni aici
   ];
   const formData = new FormData();
 
@@ -49,24 +48,31 @@ function AddPacientModal({ onClose, onAddPacient }) {
     setStep(step - 1);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const pacientNou = {
-      first_name,
-      last_name,
-      age,
-      cnp,
-      phone_number,
-      email,
-      work_place,
-      occupation,
-      adresa: { country, city, street, street_number },
-      alergies: [],
+    const newPacient = {
+      email: email,
+      password: phone_number,
+      firstName: first_name,
+      lastName: last_name,
+      phoneNumber: phone_number,
+      pacientProfile: {
+        age: age,
+        cnp: cnp,
+        workPlace: work_place,
+        profession: occupation,
+        address: {
+          country: country,
+          city: city,
+          street: street,
+          streetNumber: street_number,
+        },
+      },
+      medicEmail: "john.doe@gmail.com",
     };
-    onAddPacient(pacientNou);
-    onClose();
+    await onAddPacient(newPacient).then(() => onClose());
   };
+
   // const handleChange = (e) => {
   //   const { name, value } = e.target;
   //   setFormData((prevData) => ({
@@ -75,25 +81,25 @@ function AddPacientModal({ onClose, onAddPacient }) {
   //   }));
   // };
 
-  const handleAlergiesChange = (selectedOptions) => {
-    const alergiesValues = selectedOptions.map((option) => option.value);
-    setAlergies(alergiesValues); // Actualizează starea 'alergies'
+  const handleAllergiesChange = (selectedOptions) => {
+    const allergiesValues = selectedOptions.map((option) => option.value);
+    setAlergies(allergiesValues); // Actualizează starea 'allergies'
   };
 
-  const handleAlergiesDelete = (removedAlergie) => {
-    const filteredAlergies = alergies.filter(
+  const handleAllergiesDelete = (removedAlergie) => {
+    const filteredAlergies = allergies.filter(
       (alergie) => alergie !== removedAlergie
     );
-    setAlergies(filteredAlergies); // Actualizează starea 'alergies'
+    setAlergies(filteredAlergies); // Actualizează starea 'allergies'
   };
 
-  const renderAlergiesChips = () => {
-    return alergies.map((alergie, index) => (
+  const renderAllergiesChips = () => {
+    return allergies.map((alergie, index) => (
       <div key={index} className="chip">
         {alergie}
         <button
           type="button"
-          onClick={() => handleAlergiesDelete(alergie)}
+          onClick={() => handleAllergiesDelete(alergie)}
         ></button>
       </div>
     ));
@@ -281,19 +287,19 @@ function AddPacientModal({ onClose, onAddPacient }) {
         )}
         {step === 3 && (
           <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
-            <div className="alergies-dropdown gap-3">
+            <div className="allergies-dropdown gap-3">
               <Select
                 isMulti
                 options={optionsAlergies}
-                value={alergies.map((alergie) => ({
+                value={allergies.map((alergie) => ({
                   label: alergie,
                   value: alergie,
                 }))}
-                onChange={handleAlergiesChange}
-                placeholder="Select alergies..."
+                onChange={handleAllergiesChange}
+                placeholder="Select allergies..."
               />
             </div>
-            {/* <div className="alergies-chips  ">{renderAlergiesChips()}</div> */}
+            {/* <div className="allergies-chips  ">{renderAlergiesChips()}</div> */}
             <div>
               <button
                 type="button"
