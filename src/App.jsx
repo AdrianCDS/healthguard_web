@@ -11,6 +11,7 @@ import Dashboard from "./pages/Dashboard";
 import PacientRequests from "./pages/PacientRequests";
 import PacientDetails from "./pages/PacientDetails";
 import Recommandations from "./pages/Recommandations";
+import Alerts from "./pages/Alerts";
 // import { Modal } from "@mui/material";
 import Account from "./pages/Account";
 
@@ -32,6 +33,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/pacients" element={<ListPacients />} />
         <Route path="/pacients/requests" element={<PacientRequests />} />
+        <Route path="/pacients/alerts/1" element={<Alerts />} />
         <Route
           path="/pacients/details/:pacientId"
           element={<PacientDetails />}
