@@ -1,9 +1,7 @@
 import React from "react";
 import heartWarningImage from "../assets/heartwarning.png";
 
-//const pacient = pacientQueryResult.data?.getUserByPacientId;
-function WarningCard({ value, parameter, alertDate }) {
-  // Funcție pentru formatarea datei și orei
+function WarningCard({ type, value, date }) {
   const formatDate = (date) => {
     if (!date) return "Invalid Date";
     const formattedDate = new Date(date);
@@ -21,7 +19,7 @@ function WarningCard({ value, parameter, alertDate }) {
       />
       <div className="flex flex-col">
         <p className="text-red-800 font-semibold">
-          Warning: {parameter} exceeded the limit!
+          Warning: {type} exceeded the limit!
         </p>
         <p className="text-yellow-700">Current value: {value}</p>
         <p className="text-yellow-700">
@@ -29,7 +27,7 @@ function WarningCard({ value, parameter, alertDate }) {
         </p>
       </div>
       <div className="ml-auto text-right">
-        <p className="text-gray-900">Alert Date: {formatDate(alertDate)}</p>
+        <p className="text-gray-900">Alert Date: {formatDate(date)}</p>
       </div>
     </div>
   );

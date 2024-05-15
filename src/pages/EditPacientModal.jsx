@@ -235,7 +235,9 @@ function EditPacientModal({ isOpen, onClose, initialPacientData, onSave }) {
         </div>
       ) : (
         <div className="flex items-center justify-center mx-auto">
-          <h1 className="font-bold text-5xl text-center">Loading...</h1>
+          <h1 className="font-bold text-5xl text-center">
+            Failed to load pacient!
+          </h1>
         </div>
       )}
     </Modal>
