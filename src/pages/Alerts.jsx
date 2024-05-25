@@ -13,13 +13,43 @@ function Alerts() {
   });
 
   const pacient = pacientQueryResult.data?.getUserByPacientId;
+  const lastReadSensorData =
+    pacientQueryResult.data?.getPacientLastReadSensorData;
+
+  let bpm, ecg, temperature, humidity;
+
+  lastReadSensorData?.forEach((item) => {
+    switch (item.type) {
+      case "BPM":
+        bpm = item;
+        break;
+      case "ECG":
+        ecg = item;
+        break;
+      case "TEMPERATURE":
+        temperature = item;
+        break;
+      case "HUMIDITY":
+        humidity = item;
+        break;
+      default:
+        console.log(`Unknown type: ${item.type}`);
+    }
+  });
+
+  const pacientLastSensorData = {
+    bpm: bpm,
+    humidity: humidity,
+    temperature: temperature,
+    ecg: ecg,
+  };
 
   return (
     <div
       className="w-full bg-cover h-screen flex justify-between bg-white"
       style={{ backgroundImage: "url('src/assets/abstract_background_2.svg')" }}
     >
-      {pacient ? (
+      {pacient && pacientLastSensorData ? (
         <div className="w-full h-screen flex">
           <div className="w-1/5 bg-blue-300 flex flex-col items-center">
             <h1 className="text-white text-6xl text-center font-bold pt-8 pb-2 text-blue-700">
@@ -32,12 +62,23 @@ function Alerts() {
               alt="Heart Alert"
             />
           </div>
-          <div className="flex-1 bg-white flex justify-center items-center">
-            <div className="w-2/3 mx-auto">
-              <WarningCard type="bpm" value={160} date={new Date()} />
-              <WarningCard type="bpm" value={160} date={new Date()} />
-              <WarningCard type="bpm" value={160} date={new Date()} />
-              <WarningCard type="bpm" value={160} date={new Date()} />
+          <div className="flex-1 bg-white flex justify-center items-center overflow-y-scroll">
+            <div className="w-3/4 mx-auto pt-32 pb-16">
+              {pacient.pacientProfile.healthWarnings.map(
+                (healthWarning, index) => (
+                  <WarningCard
+                    key={index}
+                    triggered={healthWarning.triggered}
+                    activityType={healthWarning.activityType.type}
+                    minValue={healthWarning.minValue}
+                    maxValue={healthWarning.maxValue}
+                    definedDate={healthWarning.definedDate}
+                    triggeredDate={healthWarning.triggeredDate}
+                    sensorType={healthWarning.type}
+                    lastSensorData={pacientLastSensorData}
+                  />
+                )
+              )}
             </div>
           </div>
         </div>

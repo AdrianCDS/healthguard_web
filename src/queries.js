@@ -42,6 +42,18 @@ export const GET_USER_BY_PACIENT_ID_QUERY = gql`
           street
           streetNumber
         }
+        healthWarnings {
+          type
+          message
+          minValue
+          maxValue
+          triggered
+          triggeredDate
+          definedDate
+          activityType {
+            type
+          }
+        }
         recommandations {
           note
           recommandation
@@ -57,6 +69,11 @@ export const GET_USER_BY_PACIENT_ID_QUERY = gql`
           date
         }
       }
+    }
+    getPacientLastReadSensorData(pacientId: $id) {
+      date
+      type
+      value
     }
   }
 `;
@@ -236,6 +253,52 @@ export const ADD_RECOMMANDATION_TO_PACIENT_MUTATION = gql`
   }
 `;
 
+export const ADD_ALERT_TO_PACIENT_MUTATION = gql`
+  enum ActivityType {
+    SEDENTARY
+    WALKING
+    JOGGING
+    RUNNING
+    CYCLING
+  }
+
+  mutation AddAlertToPacientMutation(
+    $id: ID!
+    $minValue: Float!
+    $maxValue: Float!
+    $type: ActivityType!
+  ) {
+    addAlert(
+      input: {
+        id: $id
+        minValue: $minValue
+        maxValue: $maxValue
+        activityType: { type: $type }
+      }
+    ) {
+      id
+      firstName
+      lastName
+      pacientProfile {
+        id
+        cnp
+        age
+        healthWarnings {
+          triggered
+          triggeredDate
+          definedDate
+          message
+          minValue
+          maxValue
+          activityType {
+            type
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const UPDATE_PACIENT_USER_MUTATION = gql`
   mutation UpdatePacientUserMutation(
     $id: ID!
@@ -297,6 +360,23 @@ export const UPDATE_PACIENT_USER_MUTATION = gql`
           streetNumber
         }
       }
+    }
+  }
+`;
+
+export const GET_PACIENT_LAST_READ_SENSOR_DATA_QUERY = gql`
+  enum SensorType {
+    TEMPERATURE
+    BPM
+    HUMIDITY
+    ECG
+  }
+
+  query GetPacientLastReadSensorDataQuery($pacientId: ID!) {
+    getPacientLastSensorData(pacientId: $pacientId, sensorType: BPM) {
+      type
+      value
+      date
     }
   }
 `;
