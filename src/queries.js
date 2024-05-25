@@ -119,6 +119,7 @@ export const GET_MEDIC_PACIENTS_DATA_QUERY = gql`
       insertedAt
       pacientProfile {
         id
+        state
         sensorData {
           type
           value
