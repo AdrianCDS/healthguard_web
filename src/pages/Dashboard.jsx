@@ -29,13 +29,30 @@ export default function Dashboard() {
   const pacients = pacientsDataQueryResult.data?.getMedicPacients;
 
   let mostRecentPatientEmail = null;
+  let triggeredAlerts = null;
 
   if (pacients) {
+    const pacientsWithTriggeredWarnings = pacients
+      .map((pacient) => {
+        const triggeredWarnings = pacient.pacientProfile.healthWarnings.filter(
+          (warning) => warning.triggered
+        );
+        if (triggeredWarnings.length > 0) {
+          return {
+            ...pacient,
+            healthWarnings: triggeredWarnings,
+          };
+        }
+        return null;
+      })
+      .filter((pacient) => pacient !== null);
+
     const [mostRecentPatient] = [...pacients].sort(
       (a, b) => new Date(b.insertedAt) - new Date(a.insertedAt)
     );
 
     mostRecentPatientEmail = mostRecentPatient.email;
+    triggeredAlerts = pacientsWithTriggeredWarnings;
   }
 
   const buttonLabels = {
@@ -59,14 +76,18 @@ export default function Dashboard() {
   };
   return (
     <div
-      className="w-full bg-cover h-screen flex justify-between bg-white"
+      className="w-full bg-cover h-screen flex justify-between bg-white overflow-hidden"
       style={{
         backgroundImage: "url('src/assets/abstract_background_2.svg')",
         backgroundSize: "cover",
       }}
     >
-      {authToken && medic && pacients && mostRecentPatientEmail ? (
-        <div className="w-full bg-cover h-screen flex justify-between">
+      {authToken &&
+      medic &&
+      pacients &&
+      mostRecentPatientEmail &&
+      triggeredAlerts ? (
+        <div className="w-full bg-cover flex justify-between">
           <div className="w-1/4 p-4 flex flex-col space-y-4 h-full bg-blue-300">
             <h1 className="text-5xl text-center font-bold pb-6 pt-8 text-blue-700">
               HealthGuard-Wear
@@ -120,7 +141,7 @@ export default function Dashboard() {
                 </div>
               </div>
               <div className="h-full flex justify-between gap-4">
-                <div className="border border-blue-400 border-4  rounded-lg text-center bg-blue-400 h-auto p-4">
+                <div className="w-full border border-blue-400 border-4 rounded-lg text-center bg-blue-400 p-4 h-3/4 overflow-y-scroll">
                   <p className="text-white pb-2 text-2xl font-bold ">
                     Last added pacients
                   </p>
@@ -135,42 +156,56 @@ export default function Dashboard() {
                     ))}
                   </div>
                 </div>
-                <div className="border border-blue-400 border-4  rounded-lg text-center bg-blue-400 p-4 mr-4">
+                {/* <div className="border border-blue-400 border-4  rounded-lg text-center bg-blue-400 p-4 mr-4 h-3/4 overflow-y-scroll">
                   <p className="text-white pb-2 text-2xl font-bold ">
                     Future appointments
                   </p>
                   <div className="flex flex-col justify-around items-center gap-4 text-white">
-                    {/* {pacients.map((pacient, index) => (
+                    {pacients.map((pacient, index) => (
                       <PatientDetailsSummaryCard
                         key={index}
                         first_name={pacient.firstName}
                         last_name={pacient.lastName}
                         date={pacient.insertedAt}
                       />
-                    ))} */}
-                    N/A
+                    ))}
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
-            <div className="h-full pb-32 flex justify-center gap-3">
-              <div className="border border-blue-400 border-4  overflow-y-auto rounded-lg text-center bg-blue-400 h-full p-4">
+            <div className="h-full flex items-center justify-center gap-3 mx-auto pb-12">
+              <div className="border border-blue-400 border-4 overflow-y-auto rounded-lg text-center bg-blue-400 h-full p-4 h-fulloverflow-y-scroll">
                 <p className="text-white text-2xl  font-bold pb-2">
                   Triggered alerts
                 </p>
                 <div className="flex flex-col space-y-4 justify-around items-center text-white w-full">
-                  {/* <AlertCard
-                    first_name="Gabi"
-                    last_name="Ionel"
-                    bpm="90"
-                    temperature="37.5"
-                    humidity="50"
-                    ecgData={[
-                      0.1, 0.3, 0.5, 0.4, 0.2, 0.3, 0.6, 0.8, 0.7, 0.4, 0.6,
-                      0.5, 0.5, 0.3, 0.1,
-                    ]}
-                  /> */}
-                  N/A
+                  {triggeredAlerts.map((triggeredPacient, index) => (
+                    <AlertCard
+                      key={index}
+                      first_name={triggeredPacient.firstName}
+                      last_name={triggeredPacient.lastName}
+                      bpm={
+                        triggeredPacient.pacientProfile.sensorData.filter(
+                          (data) => data.type === "BPM"
+                        )[0]?.value
+                      }
+                      temperature={
+                        triggeredPacient.pacientProfile.sensorData.filter(
+                          (data) => data.type === "TEMPERATURE"
+                        )[0]?.value
+                      }
+                      humidity={
+                        triggeredPacient.pacientProfile.sensorData.filter(
+                          (data) => data.type === "HUMIDITY"
+                        )[0]?.value
+                      }
+                      ecgData={
+                        triggeredPacient.pacientProfile.sensorData.filter(
+                          (data) => data.type === "ECG"
+                        )[0]?.value
+                      }
+                    />
+                  ))}
                 </div>
               </div>
             </div>

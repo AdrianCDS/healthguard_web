@@ -117,6 +117,26 @@ export const GET_MEDIC_PACIENTS_DATA_QUERY = gql`
       cnp
       phoneNumber
       insertedAt
+      pacientProfile {
+        id
+        sensorData {
+          type
+          value
+          date
+        }
+        healthWarnings {
+          triggered
+          minValue
+          maxValue
+          triggeredDate
+          definedDate
+          type
+          activityType {
+            type
+          }
+          message
+        }
+      }
     }
   }
 `;
@@ -160,7 +180,7 @@ export const REGISTER_PACIENT_MUTATION = gql`
     $streetNumber: Int!
     $medicEmail: String!
   ) {
-    registerPacient(
+    registerPacientByMedic(
       input: {
         email: $email
         password: $password
