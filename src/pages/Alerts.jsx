@@ -124,34 +124,32 @@ function Alerts() {
             />
           </div>
           <div className="w-full flex-1 bg-white flex justify-center items-center overflow-y-scroll">
-            <div className="w-3/4 grid grid-cols-2 gap-4 mx-auto mt-32 pb-8">
-              {pacient.pacientProfile.healthWarnings.length ? (
-                <div className="w-3/4 grid grid-cols-2 gap-4 mx-auto mt-32 pb-8">
-                  {pacient.pacientProfile.healthWarnings.map(
-                    (healthWarning, index) => (
-                      <WarningCard
-                        key={index}
-                        triggered={healthWarning.triggered}
-                        activityType={healthWarning.activityType.type}
-                        minValue={healthWarning.minValue}
-                        maxValue={healthWarning.maxValue}
-                        definedDate={healthWarning.definedDate}
-                        triggeredDate={healthWarning.triggeredDate}
-                        sensorType={healthWarning.type}
-                        message={healthWarning.message}
-                        lastSensorData={pacientLastSensorData}
-                      />
-                    )
-                  )}
-                </div>
-              ) : (
-                <div className="flex justify-center items-center">
-                  <p className="font-bold text-2xl pb-64 mb-64">
-                    This pacient doesn't have any alerts
-                  </p>
-                </div>
-              )}
-            </div>
+            {pacient.pacientProfile.healthWarnings.length ? (
+              <div className="w-3/4 grid grid-cols-2 gap-4 mx-auto mt-32 pb-8">
+                {pacient.pacientProfile.healthWarnings.map(
+                  (healthWarning, index) => (
+                    <WarningCard
+                      key={index}
+                      triggered={healthWarning.triggered}
+                      activityType={healthWarning.activityType.type}
+                      minValue={healthWarning.minValue}
+                      maxValue={healthWarning.maxValue}
+                      definedDate={healthWarning.definedDate}
+                      triggeredDate={healthWarning.triggeredDate}
+                      sensorType={healthWarning.type}
+                      message={healthWarning.message}
+                      lastSensorData={pacientLastSensorData}
+                    />
+                  )
+                )}
+              </div>
+            ) : (
+              <div className="flex justify-center items-center">
+                <p className="font-bold text-2xl pb-64 mb-64">
+                  This pacient doesn't have any alerts
+                </p>
+              </div>
+            )}
           </div>
           <Modal
             isOpen={addAlertModalOpen}
