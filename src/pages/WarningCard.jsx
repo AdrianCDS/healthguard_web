@@ -46,7 +46,7 @@ function WarningCard({
   }
 
   return (
-    <div className="bg-blue-200 p-4 rounded-md shadow-md flex items-center mb-4">
+    <div className="bg-blue-200 p-4 rounded-md shadow-md flex items-center">
       <img
         src={heartWarningImage}
         alt="Warning Icon"
@@ -74,19 +74,23 @@ function WarningCard({
         ) : (
           <div></div>
         )}
+        {triggered ? (
+          <div className="flex flex-col">
+            <p className="text-gray-900">
+              Defined at: {formatDate(definedDate)}
+            </p>
+            <p className="text-gray-900 font-bold text-red-500">
+              Triggered at: {formatDate(triggeredDate)}
+            </p>
+          </div>
+        ) : (
+          <div className="flex flex-col">
+            <p className="text-gray-900">
+              Defined at: {formatDate(definedDate)}
+            </p>
+          </div>
+        )}
       </div>
-      {triggered ? (
-        <div className="ml-auto text-right flex flex-col space-y-2">
-          <p className="text-gray-900">Defined at: {formatDate(definedDate)}</p>
-          <p className="text-gray-900 font-bold text-red-500">
-            Triggered at: {formatDate(triggeredDate)}
-          </p>
-        </div>
-      ) : (
-        <div className="ml-auto text-right flex flex-col space-y-2">
-          <p className="text-gray-900">Defined at: {formatDate(definedDate)}</p>
-        </div>
-      )}
     </div>
   );
 }

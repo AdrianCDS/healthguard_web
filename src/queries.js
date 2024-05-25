@@ -254,26 +254,22 @@ export const ADD_RECOMMANDATION_TO_PACIENT_MUTATION = gql`
 `;
 
 export const ADD_ALERT_TO_PACIENT_MUTATION = gql`
-  enum ActivityType {
-    SEDENTARY
-    WALKING
-    JOGGING
-    RUNNING
-    CYCLING
-  }
-
   mutation AddAlertToPacientMutation(
-    $id: ID!
+    $pacientId: ID!
     $minValue: Float!
     $maxValue: Float!
-    $type: ActivityType!
+    $message: String!
+    $activityType: ActivityTypeEnum!
+    $sensorType: SensorTypeEnum!
   ) {
     addAlert(
       input: {
-        id: $id
+        id: $pacientId
+        type: $sensorType
         minValue: $minValue
         maxValue: $maxValue
-        activityType: { type: $type }
+        message: $message
+        activityType: { type: $activityType }
       }
     ) {
       id
@@ -284,6 +280,7 @@ export const ADD_ALERT_TO_PACIENT_MUTATION = gql`
         cnp
         age
         healthWarnings {
+          type
           triggered
           triggeredDate
           definedDate
