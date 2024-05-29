@@ -244,6 +244,7 @@ export const ADD_RECOMMANDATION_TO_PACIENT_MUTATION = gql`
     $startDate: String!
     $daysDuration: Int!
     $note: String!
+    $activityType: ActivityTypeInput!
   ) {
     addRecommandation(
       input: {
@@ -252,6 +253,7 @@ export const ADD_RECOMMANDATION_TO_PACIENT_MUTATION = gql`
         startDate: $startDate
         note: $note
         daysDuration: $daysDuration
+        activityType: { type: $activityType }
       }
     ) {
       id

@@ -100,6 +100,17 @@ function PacientRequests() {
                       onReject={() => rejectRequest(pacient.id)}
                     />
                   ))}
+              {[...pacients].filter(
+                (pacient) => pacient.pacientProfile.state == "PENDING"
+              ).length == 0 ? (
+                <div className="pt-16">
+                  <p className="italic text-xl">
+                    There are no pending requests
+                  </p>
+                </div>
+              ) : (
+                <div></div>
+              )}
             </div>
           </div>
         </div>

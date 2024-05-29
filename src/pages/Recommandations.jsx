@@ -20,7 +20,11 @@ const DisplayRecommandations = ({ pacient }) => {
             key={index}
             className=" h-min flex justify-between p-4 border border-solid border-blue-500 rounded-lg bg-blue-100 overflow-hidden"
           >
-            <h1 className="w-[40%]">{recommandation.recommandation}</h1>
+            <div className="w-[40%] flex flex-col space-y-1 items-start">
+              <h1>{recommandation.activityType.type}</h1>
+              <h1>{recommandation.recommandation}</h1>
+            </div>
+
             <p className="w-[10%]">Days: {recommandation.daysDuration}</p>
             <p className="w-[30%]">Notes: {recommandation.note}</p>
             <p className="w-[20%]">Start Date: {recommandation.startDate}</p>
@@ -39,11 +43,14 @@ export default function Recommandations() {
   const [selectedRecommandation, setSelectedRecommandation] = useState("");
   const [typedRecommandation, setTypedRecommandation] = useState("");
   const [predefinedRecommandations, setPredifinedRecommandations] = useState([
-    "Walk at least 30 minutes a day",
-    "Drink at least 3L of water",
-    "Eat more fruits and vegetables",
-    "Aim to get at least 8 hours of sleep each night",
-    "Avoid smoking and drinking",
+    { text: "Walk at least 30 minutes a day", type: "WALKING" },
+    { text: "Do 15 minute jogging in the morning", type: "JOGGING" },
+    { text: "Run 1 mile every other day", type: "RUNNING" },
+    {
+      text: "Make sure to get up and stretch every 15 minutes",
+      type: "SEDENTARY",
+    },
+    { text: "Once a week use bicycle for 2 hours", type: "CYCLING" },
   ]);
 
   const pacientQueryResult = useQuery(Queries.GET_USER_BY_PACIENT_ID_QUERY, {
@@ -82,14 +89,17 @@ export default function Recommandations() {
     let date = start_date.split(".");
     let isoDate = date[2] + "-" + date[1] + "-" + date[0] + "T00:00:00Z";
 
+    const option = selectedRecommandation.split("||");
+
     try {
       await addRecommandation({
         variables: {
           id: pacientId,
-          recommandation: selectedRecommandation,
+          recommandation: option[0],
           startDate: isoDate,
           daysDuration: parseInt(days_duration),
           note: notes,
+          activityType: option[1],
         },
       });
     } catch (error) {
@@ -132,8 +142,13 @@ export default function Recommandations() {
                     onChange={(e) => setSelectedRecommandation(e.target.value)}
                   >
                     <option value="">Choose a pre-defined option</option>
-                    {predefinedRecommandations.map((recomandare, index) => (
-                      <option key={index}>{recomandare}</option>
+                    {predefinedRecommandations.map((recommandation, index) => (
+                      <option
+                        key={index}
+                        value={`${recommandation.text}||${recommandation.type}`}
+                      >
+                        {recommandation.text} ({recommandation.type})
+                      </option>
                     ))}
                   </select>
                   <div className="mt-2 flex items-center">
