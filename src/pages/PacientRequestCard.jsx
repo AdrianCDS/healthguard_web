@@ -5,7 +5,15 @@ import { UserCircleIcon } from "@heroicons/react/24/solid";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import * as Queries from "../queries";
 
-function PacientRequestCard({ id, name, cnp, phone_number, email, onReject }) {
+function PacientRequestCard({
+  id,
+  name,
+  cnp,
+  phone_number,
+  email,
+  onReject,
+  onAccept,
+}) {
   const [showModal, setShowModal] = useState(false);
 
   const handleRejectClick = () => {
@@ -13,7 +21,7 @@ function PacientRequestCard({ id, name, cnp, phone_number, email, onReject }) {
   };
 
   const handleAcceptClick = () => {
-    console.log("ACCEPTED");
+    onAccept();
   };
 
   const handleCloseModal = () => {

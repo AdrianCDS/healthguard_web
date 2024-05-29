@@ -400,3 +400,21 @@ export const GET_PACIENT_LAST_READ_SENSOR_DATA_QUERY = gql`
     }
   }
 `;
+
+export const ACCEPT_PACIENT_REQUEST_MUTATION = gql`
+  mutation AcceptPacientRequestMutation($pacientId: ID!) {
+    acceptPacientRequest(pacientId: $pacientId) {
+      id
+      email
+    }
+  }
+`;
+
+export const REJECT_PACIENT_REQUEST_MUTATION = gql`
+  mutation RejectPacientRequestMutation($pacientId: ID!) {
+    rejectPacientRequest(pacientId: $pacientId) {
+      id
+      email
+    }
+  }
+`;

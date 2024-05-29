@@ -146,31 +146,21 @@ export default function Dashboard() {
                     Last added pacients
                   </p>
                   <div className="flex flex-col items-center space-y-4 text-white">
-                    {[...pacients].reverse().map((pacient, index) => (
-                      <PatientDetailsSummaryCard
-                        key={index}
-                        first_name={pacient.firstName}
-                        last_name={pacient.lastName}
-                        date={pacient.insertedAt}
-                      />
-                    ))}
+                    {[...pacients]
+                      .reverse()
+                      .filter(
+                        (pacient) => pacient.pacientProfile.state == "CONFIRMED"
+                      )
+                      .map((pacient, index) => (
+                        <PatientDetailsSummaryCard
+                          key={index}
+                          first_name={pacient.firstName}
+                          last_name={pacient.lastName}
+                          date={pacient.insertedAt}
+                        />
+                      ))}
                   </div>
                 </div>
-                {/* <div className="border border-blue-400 border-4  rounded-lg text-center bg-blue-400 p-4 mr-4 h-3/4 overflow-y-scroll">
-                  <p className="text-white pb-2 text-2xl font-bold ">
-                    Future appointments
-                  </p>
-                  <div className="flex flex-col justify-around items-center gap-4 text-white">
-                    {pacients.map((pacient, index) => (
-                      <PatientDetailsSummaryCard
-                        key={index}
-                        first_name={pacient.firstName}
-                        last_name={pacient.lastName}
-                        date={pacient.insertedAt}
-                      />
-                    ))}
-                  </div>
-                </div> */}
               </div>
             </div>
             <div className="h-full flex items-center justify-center gap-3 mx-auto pb-12">

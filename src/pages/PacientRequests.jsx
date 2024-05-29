@@ -23,8 +23,50 @@ function PacientRequests() {
     setAscendingOrder(!ascendingOrder);
   };
 
-  const rejectRequest = (pacientId) => {
-    console.log("REJECTED");
+  const [rejectPacient] = useMutation(Queries.REJECT_PACIENT_REQUEST_MUTATION, {
+    onCompleted: ({ rejectPacientRequest }) => {
+      console.log("Successfully rejected pacient!", rejectPacientRequest);
+      location.reload();
+    },
+    onError: ({ error }) => {
+      console.error("ERROR: " + error);
+    },
+  });
+
+  const rejectRequest = async (pacientId) => {
+    try {
+      await rejectPacient({
+        variables: {
+          pacientId: pacientId,
+        },
+      });
+      setPacients(pacients);
+    } catch (error) {
+      console.error("Error rejecting pacient:", error);
+    }
+  };
+
+  const [acceptPacient] = useMutation(Queries.ACCEPT_PACIENT_REQUEST_MUTATION, {
+    onCompleted: ({ acceptPacientRequest }) => {
+      console.log("Successfully accepted pacient!", acceptPacientRequest);
+      location.reload();
+    },
+    onError: ({ error }) => {
+      console.error("ERROR: " + error);
+    },
+  });
+
+  const acceptRequest = async (pacientId) => {
+    try {
+      await acceptPacient({
+        variables: {
+          pacientId: pacientId,
+        },
+      });
+      setPacients(pacients);
+    } catch (error) {
+      console.error("Error accepting pacient:", error);
+    }
   };
 
   const {
@@ -87,6 +129,7 @@ function PacientRequests() {
                         phone_number={pacient.phoneNumber}
                         email={pacient.email}
                         onReject={() => rejectRequest(pacient.id)}
+                        onAccept={() => acceptRequest(pacient.id)}
                       />
                     ))
                 : [...pacients].map((pacient, index) => (
@@ -98,6 +141,7 @@ function PacientRequests() {
                       phone_number={pacient.phoneNumber}
                       email={pacient.email}
                       onReject={() => rejectRequest(pacient.id)}
+                      onAccept={() => acceptRequest(pacient.id)}
                     />
                   ))}
               {[...pacients].filter(
